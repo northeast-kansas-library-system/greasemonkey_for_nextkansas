@@ -5,6 +5,7 @@
 // @version        1
 // @grant          none
 // @match          https://staff.nextkansas.org/*
+// @match          http://staff-test.nexpresslibrary.org/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // ==/UserScript==
 
