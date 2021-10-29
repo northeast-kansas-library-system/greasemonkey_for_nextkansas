@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name           Koha circulation rules-maximize circulation matrix
+// @name           Koha circrules-maximize circulation matrix
 // @description    Hides the left hand navigation column and displays all hidden columns in circulation matrix when the page loads
 // @author         George H. Williams
-// @version        1
+// @version        1.01
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          http://staff-test.nexpresslibrary.org/*
