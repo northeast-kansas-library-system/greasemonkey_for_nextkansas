@@ -9,6 +9,7 @@
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/main/circulation_rules_maximize_circulation_matrix_table.user.js
 // @updateURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/main/circulation_rules_maximize_circulation_matrix_table.user.js
+// @license CC BY 4.0
 // ==/UserScript==
 
 $(document).ready(function() {
