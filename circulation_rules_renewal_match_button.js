@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name           Koha adds button to make the renewal length match the issuelength in the circulation rules matrix
+// @name           Koha circulation rules-adds button to make the renewal length match the issuelength in the circulation rules matrix
 // @description    Creates a button to make the renewal length match the circulation length in a row being edited in the circulation rules matrix
 // @author         George H. Williams
 // @version        1

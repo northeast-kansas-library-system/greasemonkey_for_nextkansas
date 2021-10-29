@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name           Koha zero suspensions
+// @name           Koha circulation rules-zero suspensions
 // @description    Creates a button to set all suspension values to zero the fines and associated fields in a row being edited in the circulation rules matrix
 // @author         George H. Williams
 // @version        1
