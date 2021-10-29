@@ -15,6 +15,7 @@
 $(document).ready(function() {
 
   $('#admin_smart-rules #default-circulation-rules > tfoot:nth-child(4) > tr:nth-child(1) > th:nth-child(3)').append("<br /><button id='renewalmatch' type='button' style='margin: 5px' class='btn btn-default btn-xs'>Renewal match</button>");
+
   $("#renewalmatch").click(function() {
     $('#lrrow').removeAttr('id');
     $('#default-circulation-rules tbody tr:last').attr('id', 'lrrow');
