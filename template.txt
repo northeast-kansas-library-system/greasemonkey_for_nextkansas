@@ -1,0 +1,18 @@
+// ==UserScript==
+// @name
+// @description
+// @author         George H. Williams
+// @version        1.0
+// @grant          none
+// @match          https://staff.nextkansas.org/*
+// @match          http://staff-test.nexpresslibrary.org/*
+// @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @downloadURL
+// @updateURL
+// ==/UserScript==
+
+$(document).ready(function() {
+
+
+
+});
