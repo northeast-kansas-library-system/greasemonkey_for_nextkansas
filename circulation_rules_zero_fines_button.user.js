@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name           Koha circrules-zero fines
+// @name           Koha circrules-zero fine button
 // @description    Creates a button to set all late fees to zero the fines and associated fields in a row being edited in the circulation rules matrix
 // @author         George H. Williams
 // @version        1.01
