@@ -3,6 +3,8 @@
 // @description    Creates a button to set all suspension values to zero the fines and associated fields in a row being edited in the circulation rules matrix
 // @author         George H. Williams
 // @version        1
+// @updateURL      https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/main/circulation_rules_zero_suspensions_button.js
+// @downloadURL    https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/main/circulation_rules_zero_suspensions_button.js
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          http://staff-test.nexpresslibrary.org/*
