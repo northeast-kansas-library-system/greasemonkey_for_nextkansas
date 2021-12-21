@@ -6,6 +6,9 @@
 // @match          https://staff.nextkansas.org/*
 // @match          http://staff-test.nexpresslibrary.org/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @downloadURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/blob/main/tools_overdue_notice_status_triggers.deletion.js
+// @updateURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/blob/main/tools_overdue_notice_status_triggers.deletion.js
+// @license CC BY 4.0
 // ==/UserScript==
 
 /* Replace all instances of XXXAAAXXX with the borrower category code that you want to eliminate from the notice triggers */
