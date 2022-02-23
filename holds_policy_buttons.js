@@ -7,6 +7,9 @@
 // @match          https://staff.nextkansas.org/*
 // @match          http://staff-test.nexpresslibrary.org/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/main/holds_policy_buttons.js
+// @updateURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/main/holds_policy_buttons.js
+// @license CC BY 4.0
 // ==/UserScript==
 
 $(document).ready(function() {
