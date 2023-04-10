@@ -2,7 +2,7 @@
 // @name           Framework XXX$0 add
 // @description    Adds default values for $0 subfield
 // @author         George H. Williams
-// @version        1.2
+// @version        1.2.01
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          https://staff.nekls-test.bywatersolutions.com/*
@@ -14,8 +14,6 @@
 
 $(document).ready(function() {
   
-  $('#admin_marc_subfields_structure main').prepend('<br /><br /><button id="v_01">V-All</button>&nbsp;<button id="v_02">V-visible</button>&nbsp;<button id="v_03">V-editable</button>&nbsp;<button id="v_99">V-clear</button>&nbsp;');
-
   $('#admin_marc_subfields_structure main').prepend('<br /><br /><button id="n_00">0</button>&nbsp;<button id="n_01">1</button>&nbsp;<button id="n_02">2</button>&nbsp;<button id="n_03">3</button>&nbsp;<button id="n_04">4</button>&nbsp;<button id="n_05">5</button>&nbsp;<button id="n_06">6</button>&nbsp;<button id="n_07">7</button>&nbsp;<button id="n_08">8</button>&nbsp;<button id="n_09">9</button>&nbsp;');
   
   $('#admin_marc_subfields_structure main').prepend('<button id="zAuthority">$0</button>&nbsp;<button id="zReal">$1</button>&nbsp;<button id="zInstitution">$5</button>&nbsp;<button id="zLinkage">$6</button>&nbsp;<button id="zField">$8</button>&nbsp;<button id="zBibliographic">w</button>');
