@@ -2,7 +2,7 @@
 // @name           Framework XXX$0 add
 // @description    Adds default values for $0 subfield
 // @author         George H. Williams
-// @version        1.1
+// @version        1.2
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          https://staff.nekls-test.bywatersolutions.com/*
@@ -29,10 +29,6 @@ $(document).ready(function() {
       $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Authority record control number or standard number');
       $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
       
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', 'true');
-      
     });
   
     $("#zReal").click(function() {
@@ -41,10 +37,6 @@ $(document).ready(function() {
       $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Real World Object URI');
       $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Real World Object URI');
       $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
-      
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', 'true');
       
     });
 
@@ -55,10 +47,6 @@ $(document).ready(function() {
       $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Institution to which field applies');
       $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
       
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', 'true');
-      
     });
   
     $("#zLinkage").click(function() {
@@ -68,22 +56,14 @@ $(document).ready(function() {
       $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Linkage');
       $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
       
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', 'true');
-      
     });
 
     $("#zField").click(function() {
       
       $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('8');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Linkage');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Linkage');
+      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Field link and sequence number');
+      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Field link and sequence number');
       $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
-      
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', 'true');
       
     });
   
@@ -93,11 +73,6 @@ $(document).ready(function() {
       $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Bibliographic record control number');
       $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Bibliographic record control number');
       $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
-      
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', 'true');
-      
     });
   
     $("#n_00").click(function() {
@@ -160,41 +135,4 @@ $(document).ready(function() {
       
     });
   
-    $("#v_01").click(function() {
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(3)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(4)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(5)').prop('checked', 'true');
-      
-    });
-  
-    $("#v_02").click(function() {
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', 'true');
-      
-    });
-  
-    $("#v_03").click(function() {
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(3)').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(4)').prop('checked', 'true');
-      
-    });
-  
-    $("#v_99").click(function() {
-     
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(1)').prop('checked', '');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(2)').prop('checked', '');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(3)').prop('checked', '');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(4)').prop('checked', '');
-      $('.constraints.tab-pane.active #advanced li:nth-child(3) input:eq(5)').prop('checked', '');
-      
-    });
-
-
 });
