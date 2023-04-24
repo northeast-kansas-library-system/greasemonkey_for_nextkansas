@@ -2,7 +2,7 @@
 // @name           Framework XXX$0 add
 // @description    Adds default values for $0 subfield
 // @author         George H. Williams
-// @version        1.3
+// @version        1.4
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          https://staff.nekls-test.bywatersolutions.com/*
@@ -14,95 +14,193 @@
 
 $(document).ready(function() {
   
+  $('#admin_marc_subfields_structure main').prepend('<br /><br /><button id="a_a">$a</button>&nbsp;<button id="a_b">$b</button>&nbsp;<button id="a_c">$c</button>&nbsp;<button id="a_d">$d</button>&nbsp;<button id="a_e">$e</button>&nbsp;<button id="a_f">$f</button>&nbsp;<button id="a_g">$g</button>&nbsp;<button id="a_h">$h</button>&nbsp;<button id="a_i">$i</button>&nbsp;<button id="a_j">$j</button>&nbsp;<button id="a_k">$k</button>&nbsp;<button id="a_l">$l</button>&nbsp;<button id="a_m">$m</button>&nbsp;<button id="a_n">$n</button>&nbsp;<button id="a_o">$o</button>&nbsp;<button id="a_p">$p</button>&nbsp;<button id="a_q">$q</button>&nbsp;<button id="a_r">$r</button>&nbsp;<button id="a_s">$s</button>&nbsp;<button id="a_t">$t</button>&nbsp;<button id="a_u">$u</button>&nbsp;<button id="a_v">$v</button>&nbsp;<button id="a_w">$w</button>&nbsp;<button id="a_x">$x</button>&nbsp;<button id="a_y">$y</button>&nbsp;<button id="a_z">$z</button>&nbsp;');
+
+  
   $('#admin_marc_subfields_structure main').prepend('<br /><br /><button id="n_00">0</button>&nbsp;<button id="n_01">1</button>&nbsp;<button id="n_02">2</button>&nbsp;<button id="n_03">3</button>&nbsp;<button id="n_04">4</button>&nbsp;<button id="n_05">5</button>&nbsp;<button id="n_06">6</button>&nbsp;<button id="n_07">7</button>&nbsp;<button id="n_08">8</button>&nbsp;<button id="n_09">9</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id="n_sfa">SFA</button>');
-  
-  $('#admin_marc_subfields_structure main').prepend('<button id="zAuthority">$0</button>&nbsp;<button id="zReal">$1</button>&nbsp;<button id="zSource">$2</button>&nbsp;<button id="zMaterials">$3</button>&nbsp;<button id="zRelationship">$4</button>&nbsp;<button id="zInstitution">$5</button>&nbsp;<button id="zLinkage">$6</button>&nbsp;<button id="zField">$8</button>&nbsp;<button id="zBibliographic">w</button>');
+ 
+                                                      
+  $("#a_a").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('a');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
 
-                                                    
-    $("#zRelationship").click(function() {
-      
-      $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('4');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Relationship');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Relationship');
-      $('.constraints.tab-pane.active #advanced li:nth-child(1) input').focus();
-      
-    });
-  
-    $("#zAuthority").click(function() {
-      
-      $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('0');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Authority record control number or standard number');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Authority record control number or standard number');
-      $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(1) input').focus();
-      
-    });
-  
-    $("#zReal").click(function() {
-      
-      $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('1');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Real World Object URI');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Real World Object URI');
-      $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(1) input').focus();
-      
-    });
+  $("#a_b").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('b');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
 
-    $("#zSource").click(function() {
-      
-      $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('2');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Source of term');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Source of term');
-      $('.constraints.tab-pane.active #advanced li:nth-child(1) input').focus();
-      
-    });
+  $("#a_c").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('c');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
 
-    $("#zMaterials").click(function() {
-      
-      $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('3');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Materials specified');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Materials specified');
-      $('.constraints.tab-pane.active #advanced li:nth-child(1) input').focus();
-      
-    });
+  $("#a_d").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('d');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
 
-    $("#zInstitution").click(function() {
-      
-      $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('5');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Institution to which field applies');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Institution to which field applies');
-      $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(1) input').focus();
-      
-    });
-  
-    $("#zLinkage").click(function() {
-      
-      $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('6');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Linkage');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Linkage');
-      $('.constraints.tab-pane.active #advanced li:nth-child(1) input').focus();
-      
-    });
+  $("#a_e").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('e');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
 
-    $("#zField").click(function() {
-      
-      $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('8');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Field link and sequence number');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Field link and sequence number');
-      $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(1) input').focus();
-      
-    });
-  
-    $("#zBibliographic").click(function() {
-      
-      $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('w');
-      $('.constraints.tab-pane.active #basic li:nth-child(2) input').val('Bibliographic record control number');
-      $('.constraints.tab-pane.active #basic li:nth-child(3) input').val('Bibliographic record control number');
-      $('.constraints.tab-pane.active #basic li:nth-child(4) input').prop('checked', 'true');
-      $('.constraints.tab-pane.active #advanced li:nth-child(1) input').focus();
-    });
+  $("#a_f").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('f');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_g").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('g');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_h").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('h');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_i").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('i');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_j").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('j');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_k").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('k');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_l").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('l');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_m").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('m');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_n").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('n');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_o").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('o');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_p").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('p');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_q").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('q');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_r").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('r');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_s").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('s');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_t").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('t');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_u").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('u');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_v").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('v');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_w").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('w');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_x").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('x');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_y").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('y');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
+
+  $("#a_z").click(function() {
+    
+    $('.constraints.tab-pane.active #basic li:nth-child(1) input').val('z');
+    $('.constraints.tab-pane.active #basic li:nth-child(2) input').focus();
+    
+  });
   
     $("#n_00").click(function() {
       
