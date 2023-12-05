@@ -2,23 +2,25 @@
 // @name           Schedule helper
 // @description    Creates buttons on scheduler.pl that will schedule a report to run in 5 minutes, on the first of the following month during the midnight hour, or the same during the 1:00 a.m. hour
 // @author         George H. Williams
-// @version        2.0
+// @version        2.1
 // @grant          none
 // @match          https://staff.nextkansas.org/cgi-bin/koha/tools/scheduler.pl*
 // @match          https://staff.nekls.bywatersolutions.com/cgi-bin/koha/tools/scheduler.pl*
-// @match          http://staff-test.nexpresslibrary.org/cgi-bin/koha/tools/scheduler.pl*
+// @match          https://staff.nekls-test.bywatersolutions.com/cgi-bin/koha/tools/scheduler.pl*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/main/schedule_button.user.js
 // @updateURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/main/schedule_button.user.js
 // ==/UserScript==
 
 $(document).ready(function() {
-
-  $('#tools_scheduler #format option[value="csv"]').attr("selected","selected"); 
-    
-  var report_selected = $('#tools_scheduler #report option[selected="selected"]').val();
-  $('#tools_scheduler #report option[selected="selected"]').val(report_selected + ' --csv-header -a');
-  console.log('report_selected: ', + report_selected);
+  
+  //Auto-selects .csv format
+    $('#tools_scheduler #format option[value="csv"]').attr("selected","selected"); 
+  
+  //Gets report number from referred report and adds code to sent csv header and send file as attachment    
+    var report_selected = $('#tools_scheduler #report option[selected="selected"]').val();
+    $('#tools_scheduler #report option[selected="selected"]').val(report_selected + ' --csv-header -a');
+    console.log('report_selected: ', + report_selected);
   
   //BEGIN adds the first of the next month as a variable
     var now = new Date();
