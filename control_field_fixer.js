@@ -2,7 +2,7 @@
 // @name           Control field helper
 // @description    Creates a button to fix control fields
 // @author         George H. Williams
-// @version        1.01
+// @version        1.02
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          http://staff-test.nexpresslibrary.org/*
@@ -12,13 +12,15 @@
 // ==/UserScript==
 
 $(document).ready(function() {
+
+  //Creates buttons on 000 field
   
-  $('#cat_addbiblio [id^="tag_000"] .input_marceditor').after('<br /><button id="next_000_clear" type="button" style="margin: 5px" class="btn btn-default btn-xs">Clear</button><br />'+
-                                                             '<button id="next_000_language_material" type="button" style="margin: 5px" class="btn btn-default btn-xs">TOR - Language</button>'+
-                                                             '<button id="next_000_projected_medium" type="button" style="margin: 5px" class="btn btn-default btn-xs">TOR - Projected</button>'+
-                                                             '<button id="next_000_nonmusical_sound_recording" type="button" style="margin: 5px" class="btn btn-default btn-xs">TOR - Non-musical sound</button>'+
-                                                             '<button id="next_000_musical_sound_recording" type="button" style="margin: 5px" class="btn btn-default btn-xs">TOR - Musical sound</button>'+
-                                                             '<button id="next_000_computer_file" type="button" style="margin: 5px" class="btn btn-default btn-xs">TOR - Computer file</button>');
+  $('#cat_addbiblio [id^="tag_000"] .input_marceditor').after('<br /><button id="next_000_clear" type="button" style="margin: 5px" class="btn btn-default btn-xs">000-Clear</button><br />'+
+                                                             '<button id="next_000_language_material" type="button" style="margin: 5px" class="btn btn-default btn-xs">000-7 Language</button>'+
+                                                             '<button id="next_000_projected_medium" type="button" style="margin: 5px" class="btn btn-default btn-xs">000-7 Projected</button>'+
+                                                             '<button id="next_000_nonmusical_sound_recording" type="button" style="margin: 5px" class="btn btn-default btn-xs">000-7 Non-musical sound</button>'+
+                                                             '<button id="next_000_musical_sound_recording" type="button" style="margin: 5px" class="btn btn-default btn-xs">000-7 Musical sound</button>'+
+                                                             '<button id="next_000_computer_file" type="button" style="margin: 5px" class="btn btn-default btn-xs">000-7 Computer file</button>');
   
   $('#next_000_clear').click(function (){
     $('[id^="tag_000"].input_marceditor').val('');
