@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name           Control field sandbox
+// @name           Control field helper
 // @description    Creates a button to fix control fields
 // @author         George H. Williams
 // @version        1.04
