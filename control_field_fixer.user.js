@@ -2,7 +2,7 @@
 // @name           Control field helper
 // @description    Creates a button to fix control fields
 // @author         George H. Williams
-// @version        1.04
+// @version        1.05
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          http://staff-test.nexpresslibrary.org/*
@@ -456,5 +456,36 @@ $(document).ready(function() {
   $('#next_007_video_vhs').click(function (){
     $('[id^="tag_007"].input_marceditor').val('vf cbahou');
   });
+
+
+/*
+  $('[id^="tag_008"].input_marceditor').val(
+    m_008_00_05 +
+    m_008_06 +
+    m_008_07_10 +
+    m_008_11_14 +
+    m_008_15_17 +
+    m_008_18 +
+    m_008_19 +
+    m_008_20 +
+    m_008_21 +
+    m_008_22 +
+    m_008_23 +
+    m_008_24 +
+    m_008_25 +
+    m_008_26 +
+    m_008_27 +
+    m_008_28 +
+    m_008_29 +
+    m_008_30 +
+    m_008_31 +
+    m_008_32 +
+    m_008_33 +
+    m_008_34 +
+    m_008_35_37 +
+    m_008_38 +
+    m_008_39
+  );
+*/
 
 });
