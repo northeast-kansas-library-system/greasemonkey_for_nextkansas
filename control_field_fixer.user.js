@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name           Control field helper
+// @name           Control field helper (sandbox)
 // @description    Creates a button to fix control fields
 // @author         George H. Williams
-// @version        1.05
+// @version        1.07
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          http://staff-test.nexpresslibrary.org/*
@@ -141,12 +141,19 @@ $(document).ready(function() {
     $('#cat_addbiblio #toolbar').after(
       '<br /><button id="next_basic_book" type="button" style="margin: 5px" class="btn btn-default btn-xs">Regular print book</button>' +
       '&nbsp;<button id="next_large_print_book" type="button" style="margin: 5px" class="btn btn-default btn-xs">Large print book</button>'+
+      '<span style="padding-left: 25px; padding-right: 25px;">//</span>'+
       '&nbsp;<button id="next_braile_book" type="button" style="margin: 5px" class="btn btn-default btn-xs">Braile book</button>'+
-      '<br /><button id="next_magazine" type="button" style="margin: 5px" class="btn btn-default btn-xs">Periodical / magazine</button>'+
+      '&nbsp;<button id="next_magazine" type="button" style="margin: 5px" class="btn btn-default btn-xs">Periodical / magazine</button>'+
       '&nbsp;<button id="next_newspaper" type="button" style="margin: 5px" class="btn btn-default btn-xs">Newspaper</button>'+
-      '<br /><button id="next_realia" type="button" style="margin: 5px" class="btn btn-default btn-xs">3 dimensional object</button>'+
-      '<br /><button id="next_video_game_disc" type="button" style="margin: 5px" class="btn btn-default btn-xs">Video game disc</button>'+
-      '&nbsp;<button id="next_video_game_cartridge" type="button" style="margin: 5px" class="btn btn-default btn-xs">Video game cartridge</button>'
+      '<br />;<button id="next_video_dvd" type="button" style="margin: 5px" class="btn btn-default btn-xs">Video - DVD</button>'+
+      '&nbsp;<button id="next_video_blu" type="button" style="margin: 5px" class="btn btn-default btn-xs">Video - Blu</button>'+
+      '&nbsp;<button id="next_video_combo" type="button" style="margin: 5px" class="btn btn-default btn-xs">Video - Combo</button>'+
+      '&nbsp;<button id="next_video_player" type="button" style="margin: 5px" class="btn btn-default btn-xs">Video - Player</button>'+
+      '&nbsp;<button id="next_video_vhs" type="button" style="margin: 5px" class="btn btn-default btn-xs">Video - VHS</button>'+
+      '<span style="padding-left: 25px; padding-right: 25px;">//</span>'+
+      '&nbsp;<button id="next_video_game_disc" type="button" style="margin: 5px" class="btn btn-default btn-xs">Video game disc</button>'+
+      '&nbsp;<button id="next_video_game_cartridge" type="button" style="margin: 5px" class="btn btn-default btn-xs">Video game cartridge</button>'+
+      '<br /><button id="next_realia" type="button" style="margin: 5px" class="btn btn-default btn-xs">3 dimensional object</button>'
     );
   
   
