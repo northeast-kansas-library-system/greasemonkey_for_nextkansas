@@ -2,7 +2,11 @@
 // @name           Control field helper (sandbox)
 // @description    Creates a button to fix control fields
 // @author         George H. Williams
+<<<<<<< HEAD
 // @version        1.07
+=======
+// @version        1.06
+>>>>>>> 7e3101064babd03d1ce530a7ed94ca08c2d336ba
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          http://staff-test.nexpresslibrary.org/*
