@@ -2,7 +2,7 @@
 // @name           Control field helper
 // @description    Creates a button to fix control fields
 // @author         George H. Williams
-// @version        1.05
+// @version        1.06
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          http://staff-test.nexpresslibrary.org/*
