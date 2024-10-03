@@ -2,7 +2,7 @@
 // @name           Breadcrumbs; URLs; and Wiki data
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.0
+// @version        1.1
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          https://staff.nekls-test.bywatersolutions.com/*
@@ -111,3 +111,5 @@ $(document).ready(function () {
 });
 
 /* ========== END all pages ========== */
+
+/* Add comments */
