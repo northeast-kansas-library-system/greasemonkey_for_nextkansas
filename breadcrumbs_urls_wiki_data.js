@@ -7,6 +7,8 @@
 // @match          https://staff.nextkansas.org/*
 // @match          https://staff.nekls-test.bywatersolutions.com/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.js
+// @updateURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.js
 // ==/UserScript==
 
 /* ========== BEGIN all pages ========== */
