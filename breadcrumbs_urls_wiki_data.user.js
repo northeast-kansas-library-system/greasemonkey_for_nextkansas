@@ -2,19 +2,18 @@
 // @name           Breadcrumbs; URLs; and Wiki data
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.2
+// @version        1.3
 // @grant          none
-// @match          https://staff.nextkansas.org/*
-// @match          https://staff.nekls-test.bywatersolutions.com/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
-// @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.js
-// @updateURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.js
+// @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
+// @updateURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
 // ==/UserScript==
 
 /* ========== Add links to Koha that can facilitate easy commenting ========== */
 
 $(document).ready(function () {
 
+//Creates links in upper right of Koha  
   $('#user-menu').append(
     '<li class="dropdown"><a href="#" class="dropdown-toggle navbar-right" data-toggle="dropdown">Links<b class="caret"></b></a>' + 
     '<ul class="dropdown-menu">' +
@@ -27,13 +26,15 @@ $(document).ready(function () {
       '<li><a id="ngm_wiki_data_jq_update"  href="#">Get wiki data for updated jQuery</a></li>' + 
     '</ul>'
   );
-  
+
+//Creates "Breadcrumbs, URL, and Koha version" variables
   var ngm_breadcrumbs = $('#breadcrumbs ol li').text().trim().replace(/\n/g, '>').replace(/\s+/g, ' ').replace(/> /g, '>').replace(/>+/g, ' > ');
   var ngm_url = $(location).attr('href');
   var ngm_slice_url = ngm_url.substr(ngm_url.indexOf("cgi-bin") + 1)
   var ngm_partial_url = "/c" + ngm_slice_url
   var ngm_koha_version = $('head meta[name="generator"]').attr('content');
-  
+
+//Creates "today" variable
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -41,9 +42,8 @@ $(document).ready(function () {
 
   today = yyyy + '-' + mm + '-' + dd;
   
-  
+//Creates replacement variables for some URL information
   const nsc_base = /^.*(?=(\/cgi))/
-  
   const nsc_accountlines_id = /(?<=accountlines_id=).[0-9]*/
   const nsc_amount = /(?<=amount=).[0-9]\.[0-9]*/
   const nsc_amountoutstanding = /(?<=amountoutstanding=).[0-9]\.[0-9]*/
@@ -58,11 +58,10 @@ $(document).ready(function () {
   const nsc_log_object = /(?<=object=).[0-9]*/
   const nsc_suggestionid = /(?<=suggestionid=).[0-9]*/
   
-  
+//replaces values from URL variables with generic data 
   let url = $(location).attr('href'); 
   let nsc_url_simplified = url
     .replace(nsc_base, "")
-  
     .replace(nsc_accountlines_id, "[ACCOUNTLINES_ID]")
     .replace(nsc_amount, "[00.00]")
     .replace(nsc_amountoutstanding, "[00.00]")
@@ -76,11 +75,6 @@ $(document).ready(function () {
     .replace(nsc_patron_id, "[BORROWERNUMBER]")
     .replace(nsc_patron_list, "[PATRON_LIST_ID]")
     .replace(nsc_suggestionid, "[SUGGESTIONID]")
-    
-  console.log('Simplified URL: ' + nsc_url_simplified)
-  
-  
-  
   
   //BEGIN adds function to #ngm_get_breadcrumbs button
     $("#ngm_get_breadcrumbs").click(function() {
@@ -102,7 +96,7 @@ $(document).ready(function () {
       navigator.clipboard.writeText('//' + ngm_breadcrumbs + '\r\n//(' + nsc_url_simplified + ')\r\n');
     });
   
-  //BEGIN adds function to #ngm_get_jq_comment button
+  //BEGIN adds function to #ngm_get_css_comment button
     $("#ngm_get_css_comment").click(function() {
       navigator.clipboard.writeText('/* ' + ngm_breadcrumbs + '*/\r\n/* (' + nsc_url_simplified + ') */\r\n');
     });
