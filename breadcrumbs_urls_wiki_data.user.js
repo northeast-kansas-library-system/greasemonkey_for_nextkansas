@@ -2,7 +2,7 @@
 // @name           Breadcrumbs; URLs; and Wiki data
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.1
+// @version        1.2
 // @grant          none
 // @match          https://staff.nextkansas.org/*
 // @match          https://staff.nekls-test.bywatersolutions.com/*
@@ -11,7 +11,7 @@
 // @updateURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.js
 // ==/UserScript==
 
-/* ========== BEGIN all pages ========== */
+/* ========== Add links to Koha that can facilitate easy commenting ========== */
 
 $(document).ready(function () {
 
@@ -19,8 +19,10 @@ $(document).ready(function () {
     '<li class="dropdown"><a href="#" class="dropdown-toggle navbar-right" data-toggle="dropdown">Links<b class="caret"></b></a>' + 
     '<ul class="dropdown-menu">' +
       '<li><a id="ngm_get_breadcrumbs" href="#">Get breadcrumbs from page</a</li>' +
-      '<li><a id="ngm_get_url"  href="#">Get url from page</a</li>' +
+      '<li><a id="ngm_get_url" href="#">Get url from page</a</li>' +
       '<li><a id="ngm_get_partial_url"  href="#">Get partial url</a></li>' +
+      '<li><a id="ngm_get_jq_comment" href="#">jQuery Comment</a</li>' +
+      '<li><a id="ngm_get_css_comment" href="#">CSS Comment</a</li>' +
       '<li><a id="ngm_wiki_data_jq_new"  href="#">Get wiki data for new jQuery</a></li>' + 
       '<li><a id="ngm_wiki_data_jq_update"  href="#">Get wiki data for updated jQuery</a></li>' + 
     '</ul>'
@@ -39,19 +41,70 @@ $(document).ready(function () {
 
   today = yyyy + '-' + mm + '-' + dd;
   
-  //BEGIN adds function to #breadcrumbs button
+  
+  const nsc_base = /^.*(?=(\/cgi))/
+  
+  const nsc_accountlines_id = /(?<=accountlines_id=).[0-9]*/
+  const nsc_amount = /(?<=amount=).[0-9]\.[0-9]*/
+  const nsc_amountoutstanding = /(?<=amountoutstanding=).[0-9]\.[0-9]*/
+  const nsc_biblionumber = /(?<=biblionumber=).[0-9]*/
+  const nsc_borrowernumber = /(?<=borrowernumber=).[0-9]*/
+  const nsc_branchcode = /(?<=branchcode=).[A-Z]*/
+  const nsc_item_div = /(?<=\#item).[0-9]*/
+  const nsc_itemnumber = /(?<=itemnumber=).[0-9]*/
+  const nsc_member = /(?<=member=).[0-9]*/
+  const nsc_patron_id = /(?<=patron_id=).[0-9]*/
+  const nsc_patron_list = /(?<=patron_list_id=).[0-9]*/
+  const nsc_log_object = /(?<=object=).[0-9]*/
+  const nsc_suggestionid = /(?<=suggestionid=).[0-9]*/
+  
+  
+  let url = $(location).attr('href'); 
+  let nsc_url_simplified = url
+    .replace(nsc_base, "")
+  
+    .replace(nsc_accountlines_id, "[ACCOUNTLINES_ID]")
+    .replace(nsc_amount, "[00.00]")
+    .replace(nsc_amountoutstanding, "[00.00]")
+    .replace(nsc_biblionumber, "[BIBLIONUMBER]")
+    .replace(nsc_borrowernumber, "[BORROWERNUMBER]")
+    .replace(nsc_branchcode, "[BRANCHCODE]")
+    .replace(nsc_itemnumber, "[ITEMNUMBER]")
+    .replace(nsc_item_div, "[ITEMNUMBER]")
+    .replace(nsc_log_object, "[OBJECT_ID]")
+    .replace(nsc_member, "[BORROWERNUMBER]")
+    .replace(nsc_patron_id, "[BORROWERNUMBER]")
+    .replace(nsc_patron_list, "[PATRON_LIST_ID]")
+    .replace(nsc_suggestionid, "[SUGGESTIONID]")
+    
+  console.log('Simplified URL: ' + nsc_url_simplified)
+  
+  
+  
+  
+  //BEGIN adds function to #ngm_get_breadcrumbs button
     $("#ngm_get_breadcrumbs").click(function() {
       navigator.clipboard.writeText(ngm_breadcrumbs + '\r\n');
     });
   
-  //BEGIN adds function to #breadcrumbs button
+  //BEGIN adds function to #ngm_get_url button
     $("#ngm_get_url").click(function() {
       navigator.clipboard.writeText(ngm_url + '\r\n');
     });
   
-  //BEGIN adds function to #breadcrumbs button
+  //BEGIN adds function to #ngm_get_partial_url button
     $("#ngm_get_partial_url").click(function() {
       navigator.clipboard.writeText(ngm_partial_url + '\r\n');
+    });
+  
+  //BEGIN adds function to #ngm_get_jq_comment button
+    $("#ngm_get_jq_comment").click(function() {
+      navigator.clipboard.writeText('//' + ngm_breadcrumbs + '\r\n//(' + nsc_url_simplified + ')\r\n');
+    });
+  
+  //BEGIN adds function to #ngm_get_jq_comment button
+    $("#ngm_get_css_comment").click(function() {
+      navigator.clipboard.writeText('/* ' + ngm_breadcrumbs + '*/\r\n/* (' + nsc_url_simplified + ') */\r\n');
     });
   
   //BEGIN jQuery new wiki entry
@@ -91,7 +144,7 @@ $(document).ready(function () {
         "* '''Status:''' Completed" + "\r\n" +
         "* '''Intranet or OPAC?:''' " + "\r\n" +
         "* '''Version and date:''' " + "\r\n" +
-        "** Created for Koha version " + "\r\n" +
+        "** Created for Koha version: " + "\r\n" +
         "** Creation date: " + "\r\n" +
         "** Tested and working on Koha version " + ngm_koha_version + "\r\n" +
         "** Testing date: " + today + "\r\n" +
