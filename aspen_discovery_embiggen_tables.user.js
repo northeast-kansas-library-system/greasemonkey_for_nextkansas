@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name           AAAAAAAAAA Aspen Discovery
+// @name           Embiggen tables in Aspen Discovery administratove module
 // @description    New
 // @author         George H. Williams
 // @version        1.1
