@@ -6,6 +6,8 @@
 // @grant          none
 // @match          https://staff.nekls-test.bywatersolutions.com/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @downloadURL    https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/upgrade_24_11_intranetuserjs.user.js
+// @updateURL      https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/upgrade_24_11_intranetuserjs.user.js
 // ==/UserScript==
 
 /* ========== BEGIN Special code for test server / Koha 24.05 ========== */ 
