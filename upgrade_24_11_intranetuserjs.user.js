@@ -2,7 +2,7 @@
 // @name           24.11 Koha upgrade
 // @description    New
 // @author         George H. Williams
-// @version        1.1
+// @version        1.23.2256
 // @grant          none
 // @match          https://staff.nekls-test.bywatersolutions.com/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
@@ -82,13 +82,13 @@ $(document).ready(function () {
     $('#sub-header').after(
       '<div>' + 
       '<h3 align="center" ' + 
-      'class="nsc_upgrade_alert" style="display: ; background-color: var(--c_medium); color: var(--t_medium); padding: 5px;">' + 
+      'class="nsc_upgrade_alert" style="display: none; background-color: var(--c_medium); color: var(--t_medium); padding: 5px;">' + 
       'We will be upgrading to Koha 24.11 on the evening of March 55, 2999, after 10:00 p.m.<br><br>' + 
       '<a href="#intranet_main_koha_training">' + 
       'Please see the training materials by clicking here.</a></h3>' + 
       '</div><div>' + 
       '<h3 align="center" ' + 
-      'class="nsc_upgrade_alert" style="display: ; background-color: var(--c_medium); color: var(--t_medium); padding: 5px;">'+ 
+      'class="nsc_upgrade_alert" style="display: none; background-color: var(--c_medium); color: var(--t_medium); padding: 5px;">'+ 
       'You must clear your browser cache before logging in on March 56 or March 57.<br /><br />' + 
       '<a href="https://northeast-kansas-library-system.github.io/nextsteps/upgrades/upgrade_clear_cache.html" target="_blank">' + 
       'Click here for instructions on clearing your cache.</a></h3></div>'
@@ -243,6 +243,8 @@ $(document).ready(function () {
       $('#admin_categorie #branches').attr('size', borrower_category_limitation_size); 
   
 });
+
+/* ========== END Administration pages (admin/admin-home.pl and OTHERS) / Koha 24.05 ========== */ 
 
 
 $(document).ready(function () {
