@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.5
+// @version        1.6
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -39,7 +39,12 @@ $(document).ready(function () {
             '<li><a id="aspen_get_url">Copy the URL</a</li>' +
             '<li><a id="aspen_generic_screenshot" href="#">Training screenshot</a></li>' + 
             '<li><a id="aspen_force_reindex" href="#">Force reindex</a></li>' + 
-            '<li><a id="aspen_get_hrefs" href="#">Get links to titles</a></li>' + 
+            '<li><a id="aspen_get_group_hrefs" href="#">Get links to groups</a></li>' +
+            '<li><a id="aspen_open_editions" href="#">Open editions</a></li>' + 
+            '<li><a id="aspen_get_record_hrefs" href="#">Get links to records search</a></li>' + 
+            '<li><a id="aspen_get_koha_hrefs" href="#">Get links to Koha for Koha items</a></li>' + 
+            '<li><a id="aspen_goto_staff" href="#">Go to staff client</a></li>' + 
+            '<li><a id="aspen_image" href="#">Image search</a></li>' + 
           '</ul>' + 
           '</div>'
         );
@@ -69,39 +74,93 @@ $(document).ready(function () {
           $('button:contains("Force Reindex")').click();
         }); 
       
-      //BEGIN get links
-        $('#aspen_get_hrefs').click(function() {
-  
+      //BEGIN get group links
+        $('#aspen_get_group_hrefs').click(function() {
           var arr = [], l = document.getElementsByClassName("result-title"); 
-  for(var i=0; i<l.length; i++) {
-    arr.push(l[i].href);
-  }
-          
-          
-          
+          for(var i=0; i<l.length; i++) {
+            arr.push(l[i].href);
+          }
           function copyToClipboard(text) {
-      var dummy = document.createElement("textarea");
-      // to avoid breaking orgain page when copying more words
-      // cant copy when adding below this code
-      // dummy.style.display = 'none'
-      document.body.appendChild(dummy);
-      //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
-      dummy.value = text;
-      dummy.select();
-      document.execCommand("copy");
-      document.body.removeChild(dummy);
-  }
-  copyToClipboard(arr.join('\n'))
-          
-          
-          
-          
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+          }
+          copyToClipboard(arr.join('\n'))
           console.log(arr.join('\n'))
-  
-        });      
+          window.open('https://www.openallurls.com/', '_blank');
+        });
+
+      //BEGIN force reindex 
+        $('#aspen_open_editions').click(function() { 
+          $('.btn-editions').click();
+        }); 
       
-        //document.querySelector('.result-title').href
-    
+      //BEGIN get record links
+        $('#aspen_get_record_hrefs').click(function() {
+          $('a:contains("More Info")').addClass('link_to_record');
+          var record_links = [], l = document.getElementsByClassName("link_to_record"); 
+          for(var i=0; i<l.length; i++) {
+            record_links.push(l[i].href);
+          }
+          function copyToClipboard(text) {
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+          }
+          copyToClipboard(record_links.join('\n'))
+          console.log(record_links.join('\n'))
+          window.open('https://www.openallurls.com/', '_blank');
+        });
+      
+      //BEGIN get koha links
+        $('#aspen_get_koha_hrefs').click(function() {
+          $('a:contains("More Info")').addClass('link_to_record');
+          var staff_links = [], l = document.getElementsByClassName("link_to_record"); 
+          for(var i=0; i<l.length; i++) {
+            staff_links.push(l[i].href);
+          }
+          function copyToClipboard(text) {
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+          }
+          let staff_links_01 = staff_links.join('\n');
+          let staff_links_02 = staff_links_01.toString();
+          let staff_links_03 = staff_links_02.replaceAll('https://nextkansas.org/Record/', 'https://staff.nekls.bywatersolutions.com/cgi-bin/koha/catalogue/detail.pl?biblionumber=');
+          console.log('staff_links_03: ' + staff_links_03);
+          copyToClipboard(staff_links_03);
+          window.open('https://www.openallurls.com/', '_blank');
+        });
+      
+      //var staff_links_01 = staff_links.replaceAll('https://nextkansas.org/Record/', 'https://staff.nekls.bywatersolutions.com/cgi-bin/koha/catalogue/detail.pl?biblionumber=');
+      
+      //BEGIN force reindex 
+        $('#aspen_goto_staff').click(function() { 
+          var gotostaff = ($('a.btn:contains("View in Staff Client")').attr('href') || '#');
+          console.log('gotostaff: ' + gotostaff);
+          window.open(gotostaff, '_blank');
+        }); 
+      
+      // View in Staff Client
+
+      ////BEGIN google link
+        $('#aspen_image').click(function() { 
+          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
+          var publisher = ($('meta[property*="publisher"]').attr('content') || ' ');
+          console.log('title: ' +  title)
+          console.log('publisher: ' +  publisher)
+          window.open('http://www.google.com/search?q=' + title + ' ' + publisher + '&tbm=isch', '_blank');
+        });
+      
     }  
   }
     
