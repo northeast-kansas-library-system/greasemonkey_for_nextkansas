@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.4
+// @version        1.5
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -12,7 +12,6 @@
 /* ========== Add links to Koha that can facilitate easy commenting ========== */
 
 $(document).ready(function () {
-  
   
   let nsc_is_koha = $('head > title').text();
   let koha = nsc_is_koha.includes('Koha')
@@ -39,11 +38,11 @@ $(document).ready(function () {
           '<ul class="dropdown-menu dropdown-menu-right">' +
             '<li><a id="aspen_get_url">Copy the URL</a</li>' +
             '<li><a id="aspen_generic_screenshot" href="#">Training screenshot</a></li>' + 
-            '<li style="display: none;"><a id="aspen_problem" href="/WebBuilder/ResourcesList">Report a problem</a></li>' +
+            '<li><a id="aspen_force_reindex" href="#">Force reindex</a></li>' + 
+            '<li><a id="aspen_get_hrefs" href="#">Get links to titles</a></li>' + 
           '</ul>' + 
           '</div>'
         );
-    
     
       //Creates variables  
         var aspen_url = $(location).attr('href');
@@ -60,8 +59,48 @@ $(document).ready(function () {
         $('#aspen_generic_screenshot').click(function() { 
           $('#nsc').hide(); 
           $('#account-menu-dropdown span').html('Your username').attr('style','padding-right: 10px'); 
+          $('#pin').removeAttr('type').val('YOUR PASSWORD');
+          $('#pin1').removeAttr('type').val('ENTER YOUR NEW PASSWORD');
+          $('#pin2').removeAttr('type').val('ENTER YOUR NEW PASSWORD AGAIN');
+        });
+      
+      //BEGIN force reindex 
+        $('#aspen_force_reindex').click(function() { 
+          $('button:contains("Force Reindex")').click();
         }); 
-    
+      
+      //BEGIN get links
+        $('#aspen_get_hrefs').click(function() {
+  
+          var arr = [], l = document.getElementsByClassName("result-title"); 
+  for(var i=0; i<l.length; i++) {
+    arr.push(l[i].href);
+  }
+          
+          
+          
+          function copyToClipboard(text) {
+      var dummy = document.createElement("textarea");
+      // to avoid breaking orgain page when copying more words
+      // cant copy when adding below this code
+      // dummy.style.display = 'none'
+      document.body.appendChild(dummy);
+      //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
+      dummy.value = text;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+  }
+  copyToClipboard(arr.join('\n'))
+          
+          
+          
+          
+          console.log(arr.join('\n'))
+  
+        });      
+      
+        //document.querySelector('.result-title').href
     
     }  
   }
