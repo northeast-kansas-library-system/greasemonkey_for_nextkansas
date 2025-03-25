@@ -1,8 +1,11 @@
+https://m.media-amazon.com/images/I/81YUji4HSfL.jpg
+
+
 // ==UserScript==
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.6
+// @version        1.7
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -45,6 +48,8 @@ $(document).ready(function () {
             '<li><a id="aspen_get_koha_hrefs" href="#">Get links to Koha for Koha items</a></li>' + 
             '<li><a id="aspen_goto_staff" href="#">Go to staff client</a></li>' + 
             '<li><a id="aspen_image" href="#">Image search</a></li>' + 
+            '<li><a id="aspen_image_wp" href="#">Image search w publisher</a></li>' + 
+            '<li><a id="aspen_image_movie" href="#">Image search movie poster</a></li>' + 
           '</ul>' + 
           '</div>'
         );
@@ -141,8 +146,6 @@ $(document).ready(function () {
           window.open('https://www.openallurls.com/', '_blank');
         });
       
-      //var staff_links_01 = staff_links.replaceAll('https://nextkansas.org/Record/', 'https://staff.nekls.bywatersolutions.com/cgi-bin/koha/catalogue/detail.pl?biblionumber=');
-      
       //BEGIN force reindex 
         $('#aspen_goto_staff').click(function() { 
           var gotostaff = ($('a.btn:contains("View in Staff Client")').attr('href') || '#');
@@ -150,15 +153,27 @@ $(document).ready(function () {
           window.open(gotostaff, '_blank');
         }); 
       
-      // View in Staff Client
-
-      ////BEGIN google link
+      ////BEGIN google search with publisher
         $('#aspen_image').click(function() { 
+          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
+          console.log('title: ' +  title)
+          window.open('http://www.google.com/search?q=' + title + '&tbm=isch', '_blank');
+        });
+      
+      ////BEGIN google search with publisher
+        $('#aspen_image_wp').click(function() { 
           var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
           var publisher = ($('meta[property*="publisher"]').attr('content') || ' ');
           console.log('title: ' +  title)
           console.log('publisher: ' +  publisher)
           window.open('http://www.google.com/search?q=' + title + ' ' + publisher + '&tbm=isch', '_blank');
+        });
+
+      ////BEGIN google search with publisher
+        $('#aspen_image_movie').click(function() { 
+          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
+          console.log('title: ' +  title)
+          window.open('http://www.google.com/search?q=' + title + ' movie poster' + '&tbm=isch', '_blank');
         });
       
     }  
