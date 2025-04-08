@@ -1,8 +1,11 @@
+https://m.media-amazon.com/images/I/81YUji4HSfL.jpg
+
+
 // ==UserScript==
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.4
+// @version        1.7
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -12,7 +15,6 @@
 /* ========== Add links to Koha that can facilitate easy commenting ========== */
 
 $(document).ready(function () {
-  
   
   let nsc_is_koha = $('head > title').text();
   let koha = nsc_is_koha.includes('Koha')
@@ -39,11 +41,18 @@ $(document).ready(function () {
           '<ul class="dropdown-menu dropdown-menu-right">' +
             '<li><a id="aspen_get_url">Copy the URL</a</li>' +
             '<li><a id="aspen_generic_screenshot" href="#">Training screenshot</a></li>' + 
-            '<li style="display: none;"><a id="aspen_problem" href="/WebBuilder/ResourcesList">Report a problem</a></li>' +
+            '<li><a id="aspen_force_reindex" href="#">Force reindex</a></li>' + 
+            '<li><a id="aspen_get_group_hrefs" href="#">Get links to groups</a></li>' +
+            '<li><a id="aspen_open_editions" href="#">Open editions</a></li>' + 
+            '<li><a id="aspen_get_record_hrefs" href="#">Get links to records search</a></li>' + 
+            '<li><a id="aspen_get_koha_hrefs" href="#">Get links to Koha for Koha items</a></li>' + 
+            '<li><a id="aspen_goto_staff" href="#">Go to staff client</a></li>' + 
+            '<li><a id="aspen_image" href="#">Image search</a></li>' + 
+            '<li><a id="aspen_image_wp" href="#">Image search w publisher</a></li>' + 
+            '<li><a id="aspen_image_movie" href="#">Image search movie poster</a></li>' + 
           '</ul>' + 
           '</div>'
         );
-    
     
       //Creates variables  
         var aspen_url = $(location).attr('href');
@@ -60,9 +69,113 @@ $(document).ready(function () {
         $('#aspen_generic_screenshot').click(function() { 
           $('#nsc').hide(); 
           $('#account-menu-dropdown span').html('Your username').attr('style','padding-right: 10px'); 
+          $('#pin').removeAttr('type').val('YOUR PASSWORD');
+          $('#pin1').removeAttr('type').val('ENTER YOUR NEW PASSWORD');
+          $('#pin2').removeAttr('type').val('ENTER YOUR NEW PASSWORD AGAIN');
+        });
+      
+      //BEGIN force reindex 
+        $('#aspen_force_reindex').click(function() { 
+          $('button:contains("Force Reindex")').click();
         }); 
-    
-    
+      
+      //BEGIN get group links
+        $('#aspen_get_group_hrefs').click(function() {
+          var arr = [], l = document.getElementsByClassName("result-title"); 
+          for(var i=0; i<l.length; i++) {
+            arr.push(l[i].href);
+          }
+          function copyToClipboard(text) {
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+          }
+          copyToClipboard(arr.join('\n'))
+          console.log(arr.join('\n'))
+          window.open('https://www.openallurls.com/', '_blank');
+        });
+
+      //BEGIN force reindex 
+        $('#aspen_open_editions').click(function() { 
+          $('.btn-editions').click();
+        }); 
+      
+      //BEGIN get record links
+        $('#aspen_get_record_hrefs').click(function() {
+          $('a:contains("More Info")').addClass('link_to_record');
+          var record_links = [], l = document.getElementsByClassName("link_to_record"); 
+          for(var i=0; i<l.length; i++) {
+            record_links.push(l[i].href);
+          }
+          function copyToClipboard(text) {
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+          }
+          copyToClipboard(record_links.join('\n'))
+          console.log(record_links.join('\n'))
+          window.open('https://www.openallurls.com/', '_blank');
+        });
+      
+      //BEGIN get koha links
+        $('#aspen_get_koha_hrefs').click(function() {
+          $('a:contains("More Info")').addClass('link_to_record');
+          var staff_links = [], l = document.getElementsByClassName("link_to_record"); 
+          for(var i=0; i<l.length; i++) {
+            staff_links.push(l[i].href);
+          }
+          function copyToClipboard(text) {
+            var dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+          }
+          let staff_links_01 = staff_links.join('\n');
+          let staff_links_02 = staff_links_01.toString();
+          let staff_links_03 = staff_links_02.replaceAll('https://nextkansas.org/Record/', 'https://staff.nekls.bywatersolutions.com/cgi-bin/koha/catalogue/detail.pl?biblionumber=');
+          console.log('staff_links_03: ' + staff_links_03);
+          copyToClipboard(staff_links_03);
+          window.open('https://www.openallurls.com/', '_blank');
+        });
+      
+      //BEGIN force reindex 
+        $('#aspen_goto_staff').click(function() { 
+          var gotostaff = ($('a.btn:contains("View in Staff Client")').attr('href') || '#');
+          console.log('gotostaff: ' + gotostaff);
+          window.open(gotostaff, '_blank');
+        }); 
+      
+      ////BEGIN google search with publisher
+        $('#aspen_image').click(function() { 
+          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
+          console.log('title: ' +  title)
+          window.open('http://www.google.com/search?q=' + title + '&tbm=isch', '_blank');
+        });
+      
+      ////BEGIN google search with publisher
+        $('#aspen_image_wp').click(function() { 
+          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
+          var publisher = ($('meta[property*="publisher"]').attr('content') || ' ');
+          console.log('title: ' +  title)
+          console.log('publisher: ' +  publisher)
+          window.open('http://www.google.com/search?q=' + title + ' ' + publisher + '&tbm=isch', '_blank');
+        });
+
+      ////BEGIN google search with publisher
+        $('#aspen_image_movie').click(function() { 
+          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
+          console.log('title: ' +  title)
+          window.open('http://www.google.com/search?q=' + title + ' movie poster' + '&tbm=isch', '_blank');
+        });
+      
     }  
   }
     
