@@ -2,9 +2,10 @@
 // @name           Control field helper (sandbox)
 // @description    Creates a button to fix control fields
 // @author         George H. Williams
-// @version        1.07
+// @version        1.08
 // @grant          none
 // @match          https://staff.nextkansas.org/*
+// @match          https://staff.nekls.bywatersolutions.com/*
 // @match          http://staff-test.nexpresslibrary.org/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/main/control_field_fixer.user.js
