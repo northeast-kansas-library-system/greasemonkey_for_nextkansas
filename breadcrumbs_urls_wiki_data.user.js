@@ -238,22 +238,22 @@ $(document).ready(function () {
   //replaces values from URL variables with generic data 
     let url = $(location).attr('href'); 
     let nsc_url_simplified = url
-      .replace(nsc_base, "")
-      .replace(nsc_accountlines_id, "[ACCOUNTLINES_ID]")
-      .replace(nsc_amount, "[00.00]")
-      .replace(nsc_amountoutstanding, "[00.00]")
-      .replace(nsc_biblionumber, "[BIBLIONUMBER]")
-      .replace(nsc_borrowernumber, "[BORROWERNUMBER]")
-      .replace(nsc_branchcode, "[BRANCHCODE]")
-      .replace(nsc_itemnumber, "[ITEMNUMBER]")
-      .replace(nsc_item_div, "[ITEMNUMBER]")
-      .replace(nsc_log_object, "[OBJECT_ID]")
-      .replace(nsc_member, "[BORROWERNUMBER]")
-      .replace(nsc_patron_id, "[BORROWERNUMBER]")
-      .replace(nsc_patron_list, "[PATRON_LIST_ID]")
-      .replace(nsc_suggestionid, "[SUGGESTIONID]")
-      .replace(nsc_search_id_no, "")
-      .replace(nsc_search_id, "")
+      .replaceAll(nsc_base, "")
+      .replaceAll(nsc_accountlines_id, "[ACCOUNTLINES_ID]")
+      .replaceAll(nsc_amount, "[00.00]")
+      .replaceAll(nsc_amountoutstanding, "[00.00]")
+      .replaceAll(nsc_biblionumber, "[BIBLIONUMBER]")
+      .replaceAll(nsc_borrowernumber, "[BORROWERNUMBER]")
+      .replaceAll(nsc_branchcode, "[BRANCHCODE]")
+      .replaceAll(nsc_itemnumber, "[ITEMNUMBER]")
+      .replaceAll(nsc_item_div, "[ITEMNUMBER]")
+      .replaceAll(nsc_log_object, "[OBJECT_ID]")
+      .replaceAll(nsc_member, "[BORROWERNUMBER]")
+      .replaceAll(nsc_patron_id, "[BORROWERNUMBER]")
+      .replaceAll(nsc_patron_list, "[PATRON_LIST_ID]")
+      .replaceAll(nsc_suggestionid, "[SUGGESTIONID]")
+      .replaceAll(nsc_search_id_no, "")
+      .replaceAll(nsc_search_id, "")
     
   //Creates replacement variables for some Breadcrumbs information
     const nsc_catalog_details = /(?<=Catalog >).+\>/
@@ -270,16 +270,30 @@ $(document).ready(function () {
   //replaces values from Breadcrumb variables with generic data 
     let breadcrumbs = ngm_breadcrumbs
     let nsc_breadcrumbs_simplified = breadcrumbs
-      .replace(nsc_catalog_details, " [TITLE] >")
-      .replace(nsc_cataloging, " [TITLE] (Record # [BIBLIONUMBER]) >")
-      .replace(nsc_cataloging_edit_record, " [TITLE] (Record # [BIBLIONUMBER])")
-      .replace(nsc_borrower_checkouts, " [BORROWERNAME] ([BORROWERNUMBER])")
-      .replace(nsc_borrower_batch, " [BORROWERNAME] ([BORROWERNUMBER]) >")
-      .replace(nsc_borrower_details, " [BORROWERNAME] ([BORROWERNUMBER]) >")
-      .replace(nsc_borrower_debit_details, " ([ACCOUNTLINES_ID])")
-      .replace(nsc_borrower_credit_details, " ([ACCOUNTLINES_ID])")
-      .replace(nsc_catalog_search_results, "'[SEARCH_TERMS]'")
+      .replaceAll(nsc_catalog_details, " [TITLE] >")
+      .replaceAll(nsc_cataloging, " [TITLE] (Record # [BIBLIONUMBER]) >")
+      .replaceAll(nsc_cataloging_edit_record, " [TITLE] (Record # [BIBLIONUMBER])")
+      .replaceAll(nsc_borrower_checkouts, " [BORROWERNAME] ([BORROWERNUMBER])")
+      .replaceAll(nsc_borrower_batch, " [BORROWERNAME] ([BORROWERNUMBER]) >")
+      .replaceAll(nsc_borrower_details, " [BORROWERNAME] ([BORROWERNUMBER]) >")
+      .replaceAll(nsc_borrower_debit_details, " ([ACCOUNTLINES_ID])")
+      .replaceAll(nsc_borrower_credit_details, " ([ACCOUNTLINES_ID])")
+      .replaceAll(nsc_catalog_search_results, "'[SEARCH_TERMS]'")
     
+  //replaces values from nsc_breadcrumbs_simplified into filename
+    let nsc_breadcrumbs_to_filename = nsc_breadcrumbs_simplified
+      .replaceAll(" ", "_")
+      .replaceAll(">", "_")
+      .replaceAll("<", "_")
+      .replaceAll("[", "_")
+      .replaceAll("]", "_")
+      .replaceAll("(", "_")
+      .replaceAll(")", "_")
+      .replaceAll("{", "_")
+      .replaceAll("}", "_")
+      .replaceAll("____", "_")
+      .replaceAll("___", "_")
+      .replaceAll("__", "_")
     
     //BEGIN adds function to #ngm_get_breadcrumbs button
       $("#ngm_get_breadcrumbs").click(function() {
@@ -314,6 +328,10 @@ $(document).ready(function () {
     //BEGIN jQuery new wiki entry
       $("#ngm_wiki_data_jq_new").click(function() {
         navigator.clipboard.writeText(
+          nsc_breadcrumbs_to_filename +
+          ".wiki " +
+          "\r\n" +
+          "\r\n" +
           "====" +
           nsc_breadcrumbs_simplified +
           "====" +
@@ -335,7 +353,8 @@ $(document).ready(function () {
           "* '''Notes:''' " + "\r\n" +
           "\r\n" +
           "\r\n" +
-          "<syntaxhighlight lang=\"jquery\">" + "\r\n" +
+          "<syntaxhighlight lang=\"jquery\">" + 
+          "\r\n" +
           "\r\n" +
           "$( document ).ready(function() { " +
           "\r\n" +
@@ -343,13 +362,18 @@ $(document).ready(function () {
           "\r\n" +
           ")}; " +
           "\r\n" +
-          "</syntaxhighlight>" 
+          "\r\n" +
+          "</syntaxhighlight>"
         );
       });
     
     //BEGIN jQuery updated wiki entry
       $("#ngm_wiki_data_jq_update").click(function() {
         navigator.clipboard.writeText(
+          nsc_breadcrumbs_to_filename +
+          ".wiki " +
+          "\r\n" +
+          "\r\n" +
           "====" +
           nsc_breadcrumbs_simplified +
           "====" +
@@ -370,16 +394,19 @@ $(document).ready(function () {
           "** Testing date: " + today + "\r\n" +
           "* '''Breadcrumbs:''' " + nsc_breadcrumbs_simplified + "\r\n" +
           "* '''URL:''' " + nsc_url_simplified + "\r\n" +
-          "* '''Notes:''' " + "\r\n" +
+          "* '''Notes:''' " + 
           "\r\n" +
           "\r\n" +
-          "<syntaxhighlight lang=\"jquery\">" + "\r\n" +
+          "\r\n" +
+          "<syntaxhighlight lang=\"jquery\">" + 
+          "\r\n" +
           "\r\n" +
           "$( document ).ready(function() { " +
           "\r\n" +
           "\r\n" +
           "\r\n" +
           ")}; " +
+          "\r\n" +
           "\r\n" +
           "</syntaxhighlight>" 
         );
