@@ -1,11 +1,8 @@
-https://m.media-amazon.com/images/I/81YUji4HSfL.jpg
-
-
 // ==UserScript==
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.7
+// @version        1.8
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -317,7 +314,13 @@ $(document).ready(function () {
     //BEGIN jQuery new wiki entry
       $("#ngm_wiki_data_jq_new").click(function() {
         navigator.clipboard.writeText(
-          "==== JQ_NAME ====" + 
+          "====" +
+          nsc_breadcrumbs_simplified +
+          "====" +
+          "\r\n" +
+          "\r\n" +
+          "\r\n" +
+          "=====JQ_NAME=====" + 
           "\r\n" +
           "\r\n" +
           "* '''Developer:''' George Williams (Northease Kansas Library System / Next Search Catalog)" + "\r\n" +
@@ -328,13 +331,17 @@ $(document).ready(function () {
           "** Created for: " + ngm_koha_version + "\r\n" +
           "** Creation date: " + today + "\r\n" +
           "* '''Breadcrumbs:''' " + nsc_breadcrumbs_simplified + "\r\n" +
-          "* '''URL:''' " + ngm_partial_url + "\r\n" +
+          "* '''URL:''' " + nsc_url_simplified + "\r\n" +
           "* '''Notes:''' " + "\r\n" +
           "\r\n" +
           "\r\n" +
           "<syntaxhighlight lang=\"jquery\">" + "\r\n" +
           "\r\n" +
+          "$( document ).ready(function() { " +
           "\r\n" +
+          "\r\n" +
+          "\r\n" +
+          ")}; " +
           "\r\n" +
           "</syntaxhighlight>" 
         );
@@ -343,7 +350,13 @@ $(document).ready(function () {
     //BEGIN jQuery updated wiki entry
       $("#ngm_wiki_data_jq_update").click(function() {
         navigator.clipboard.writeText(
-          "==== JQ_NAME ====" + 
+          "====" +
+          nsc_breadcrumbs_simplified +
+          "====" +
+          "\r\n" +
+          "\r\n" +
+          "\r\n" +
+          "=====JQ_NAME=====" + 
           "\r\n" +
           "\r\n" +
           "* '''Developer:''' George Williams (Northease Kansas Library System / Next Search Catalog)" + "\r\n" +
@@ -356,13 +369,17 @@ $(document).ready(function () {
           "** Tested and working on: " + ngm_koha_version + "\r\n" +
           "** Testing date: " + today + "\r\n" +
           "* '''Breadcrumbs:''' " + nsc_breadcrumbs_simplified + "\r\n" +
-          "* '''URL:''' " + ngm_partial_url + "\r\n" +
+          "* '''URL:''' " + nsc_url_simplified + "\r\n" +
           "* '''Notes:''' " + "\r\n" +
           "\r\n" +
           "\r\n" +
           "<syntaxhighlight lang=\"jquery\">" + "\r\n" +
           "\r\n" +
+          "$( document ).ready(function() { " +
           "\r\n" +
+          "\r\n" +
+          "\r\n" +
+          ")}; " +
           "\r\n" +
           "</syntaxhighlight>" 
         );
