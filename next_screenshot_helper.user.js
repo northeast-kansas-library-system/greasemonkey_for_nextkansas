@@ -7,8 +7,8 @@
 // @match          https://staff.nekls.bywatersolutions.com/*
 // @match          http://staff-test.nexpresslibrary.org/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
-// @downloadURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/main/circulation_rules_renewal_match_button.user.js
-// @updateURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/main/circulation_rules_renewal_match_button.user.js
+// @downloadURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/main/next_screenshot_helper.user.js
+// @updateURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/main/next_screenshot_helper.user.js
 // @license CC BY 4.0
 // ==/UserScript==
 
