@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name           Screen video helper
-// @description    Hides non-essential informaiton while capturing screen video for Snagit
+// @name           Next screenshot helper
+// @description    Hides non-essential and confidential information while capturing screen video for Snagit
 // @author         George H. Williams
 // @version        1.1
 // @grant          none
