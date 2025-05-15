@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.8
+// @version        1.9
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -12,6 +12,8 @@
 /* ========== Add links to Koha that can facilitate easy commenting ========== */
 
 $(document).ready(function () {
+  
+
   
   let nsc_is_koha = $('head > title').text();
   let koha = nsc_is_koha.includes('Koha')
@@ -36,7 +38,9 @@ $(document).ready(function () {
           '<a id="nsc_dropdown" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">Next Search Catalog Links' +
           '</a>' + 
           '<ul class="dropdown-menu dropdown-menu-right">' +
-            '<li><a id="aspen_get_url">Copy the URL</a</li>' +
+            '<li><a id="aspen_get_url">Copy the URL</a</li>' + 
+            '<li><a id="aspen_get_breadcrumbs">Copy the breadcrumbs</a</li>' + 
+            '<li><a id="aspen_get_there">How to get there</a</li>' + 
             '<li><a id="aspen_generic_screenshot" href="#">Training screenshot</a></li>' + 
             '<li><a id="aspen_force_reindex" href="#">Force reindex</a></li>' + 
             '<li><a id="aspen_get_group_hrefs" href="#">Get links to groups</a></li>' +
@@ -53,14 +57,69 @@ $(document).ready(function () {
     
       //Creates variables  
         var aspen_url = $(location).attr('href');
-        var aspen_discovery_url = aspen_url.replace('#', '%23')
+        var aspen_discovery_url = aspen_url.replace('#', '%23');
         console.log('aspen_url: ' + aspen_url);
-        console.log('aspen_discovery_url: ' + aspen_discovery_url)
+        console.log('aspen_discovery_url: ' + aspen_discovery_url);
+      
+        var aspen_breadcrumb = $('.breadcrumb').text();
+        var aspen_breadcrumbs = aspen_breadcrumb.replaceAll('» ', ' > ')
+        console.log('aspen_breadcrumbs: ' + aspen_breadcrumbs);
     
       //BEGIN adds function to #ngm_get_url button
         $("#aspen_get_url").click(function() {
           navigator.clipboard.writeText(aspen_discovery_url + '\r\n');
         });
+      
+      //BEGIN adds function to #aspen_breadcrumbs button
+        $("#aspen_get_breadcrumbs").click(function() {
+          navigator.clipboard.writeText(aspen_breadcrumbs + '\r\n');
+        });
+      
+      
+        $('#main-content-with-sidebar input, ' + 
+          '#main-content-with-sidebar select, ' + 
+          '#main-content-with-sidebar textarea, ' + 
+          '#main-content-with-sidebar #tinymce, ' + 
+          '#main-content-with-sidebar label'
+         ).click(function(){
+          
+          var base_url = window.location.origin;
+          var get_there_url = $('.breadcrumb li a').last().attr('href');
+          var get_there_breadcrumb = $('.breadcrumb').text();
+          var get_there_breadcrumbs = get_there_breadcrumb.replaceAll('» ', ' > ')
+          var get_there_panel_title = $('.admin-menu-section.panel.active .panel-title').text();
+          var get_there_breadcrumb_to_page = get_there_breadcrumb.lastIndexOf('» ');
+          var get_there_page = get_there_breadcrumb.substr(get_there_breadcrumb_to_page + 1);
+          var get_there_header = ($(this).parents().find('h1').first().text().trim() || $(this).parents('.form-group').find('.h2').first().text().trim() || '');
+          var get_there_panel = $(this).parents('.form-group').find('a').first().text().trim();
+          var get_there_sub_panel = $(this).parents('.form-group .form-group').find('a').text().trim();
+          var get_there_section_label_raw = ($(this).parent('.form-group').find('label').text().trim() || $(this).parents('.form-group').first().find('label').first().text().trim() || '');
+          var get_there_section_label = get_there_section_label_raw.replaceAll('Required', '')
+
+          
+          console.log('\n\nHow to get there: \n' + 
+                      '\nPage URL: ' + base_url + get_there_url  + 
+                      '\nBreadcrumbs: ' + get_there_breadcrumbs +
+                      '\nSidebar: ' + get_there_panel_title + 
+                      '\nSidebar section: ' + get_there_page +
+                      '\nPage title: ' + get_there_page + 
+                      '\n' +
+                      '\nGo to: ' + get_there_panel +
+                      '\nGo to: ' + get_there_sub_panel + 
+                      '\nGo to: ' + get_there_section_label + 
+                      '\n\n'
+                     );
+          
+        });
+      
+      
+      //BEGIN adds function to #aspen_get_focus button
+        $("#aspen_get_focus").click(function() {
+          
+        });      
+      
+      
+      
       
       //BEGIN generic screenshot 
         $('#aspen_generic_screenshot').click(function() { 
@@ -208,6 +267,12 @@ $(document).ready(function () {
     var ngm_slice_url = ngm_url.substr(ngm_url.indexOf("cgi-bin") + 1)
     var ngm_partial_url = "/c" + ngm_slice_url
     var ngm_koha_version = $('head meta[name="generator"]').attr('content');
+    console.log('ngm_breadcrumbs: ' + ngm_breadcrumbs);
+    console.log('ngm_url: ' + ngm_url);
+    console.log('ngm_slice_url: ' + ngm_slice_url);
+    console.log('ngm_partial_url: ' + ngm_partial_url);
+    console.log('ngm_koha_version: ' + ngm_koha_version);
+
   
   //Creates "today" variable
     var today = new Date();
@@ -216,6 +281,12 @@ $(document).ready(function () {
     var yyyy = today.getFullYear();
   
     today = yyyy + '-' + mm + '-' + dd;
+    
+    console.log('today: ' + today);
+    console.log('dd: ' + dd);
+    console.log('mm: ' + mm);
+    console.log('yyyy: ' + yyyy);
+    console.log('today: ' + today);
     
   //Creates replacement variables for some URL information
     const nsc_base = /^.*(?=(\/cgi))/
@@ -235,25 +306,45 @@ $(document).ready(function () {
     const nsc_search_id_no = /(?<=searchid=).*/
     const nsc_search_id = "&searchid="
     
+    console.log('nsc_base: ' + nsc_base);
+    console.log('nsc_accountlines_id: ' + nsc_accountlines_id);
+    console.log('nsc_amount: ' + nsc_amount);
+    console.log('nsc_amountoutstanding: ' + nsc_amountoutstanding);
+    console.log('nsc_biblionumber: ' + nsc_biblionumber);
+    console.log('nsc_borrowernumber: ' + nsc_borrowernumber);
+    console.log('nsc_branchcode: ' + nsc_branchcode);
+    console.log('nsc_item_div: ' + nsc_item_div);
+    console.log('nsc_itemnumber: ' + nsc_itemnumber);
+    console.log('nsc_member: ' + nsc_member);
+    console.log('nsc_patron_id: ' + nsc_patron_id);
+    console.log('nsc_patron_list: ' + nsc_patron_list);
+    console.log('nsc_log_object: ' + nsc_log_object);
+    console.log('nsc_suggestionid: ' + nsc_suggestionid);
+    console.log('nsc_search_id_no: ' + nsc_search_id_no);
+    console.log('nsc_search_id: ' + nsc_search_id);
+    
   //replaces values from URL variables with generic data 
-    let url = $(location).attr('href'); 
-    let nsc_url_simplified = url
-      .replaceAll(nsc_base, "")
-      .replaceAll(nsc_accountlines_id, "[ACCOUNTLINES_ID]")
-      .replaceAll(nsc_amount, "[00.00]")
-      .replaceAll(nsc_amountoutstanding, "[00.00]")
-      .replaceAll(nsc_biblionumber, "[BIBLIONUMBER]")
-      .replaceAll(nsc_borrowernumber, "[BORROWERNUMBER]")
-      .replaceAll(nsc_branchcode, "[BRANCHCODE]")
-      .replaceAll(nsc_itemnumber, "[ITEMNUMBER]")
-      .replaceAll(nsc_item_div, "[ITEMNUMBER]")
-      .replaceAll(nsc_log_object, "[OBJECT_ID]")
-      .replaceAll(nsc_member, "[BORROWERNUMBER]")
-      .replaceAll(nsc_patron_id, "[BORROWERNUMBER]")
-      .replaceAll(nsc_patron_list, "[PATRON_LIST_ID]")
-      .replaceAll(nsc_suggestionid, "[SUGGESTIONID]")
-      .replaceAll(nsc_search_id_no, "")
-      .replaceAll(nsc_search_id, "")
+    let nsc_url = $(location).attr('href'); 
+    console.log('nsc_url: ' + nsc_url);
+    let nsc_url_simplified = nsc_url
+      .replace(nsc_base, '')
+      .replace(nsc_accountlines_id, "[ACCOUNTLINES_ID]")
+      .replace(nsc_amount, "[00.00]")
+      .replace(nsc_amountoutstanding, "[00.00]")
+      .replace(nsc_biblionumber, "[BIBLIONUMBER]")
+      .replace(nsc_borrowernumber, "[BORROWERNUMBER]")
+      .replace(nsc_branchcode, "[BRANCHCODE]")
+      .replace(nsc_itemnumber, "[ITEMNUMBER]")
+      .replace(nsc_item_div, "[ITEMNUMBER]")
+      .replace(nsc_log_object, "[OBJECT_ID]")
+      .replace(nsc_member, "[BORROWERNUMBER]")
+      .replace(nsc_patron_id, "[BORROWERNUMBER]")
+      .replace(nsc_patron_list, "[PATRON_LIST_ID]")
+      .replace(nsc_suggestionid, "[SUGGESTIONID]")
+      .replace(nsc_search_id_no, "")
+      .replace(nsc_search_id, "")
+    
+    console.log('nsc_url_simplified: ' + nsc_url_simplified);
     
   //Creates replacement variables for some Breadcrumbs information
     const nsc_catalog_details = /(?<=Catalog >).+\>/
@@ -270,15 +361,19 @@ $(document).ready(function () {
   //replaces values from Breadcrumb variables with generic data 
     let breadcrumbs = ngm_breadcrumbs
     let nsc_breadcrumbs_simplified = breadcrumbs
-      .replaceAll(nsc_catalog_details, " [TITLE] >")
-      .replaceAll(nsc_cataloging, " [TITLE] (Record # [BIBLIONUMBER]) >")
-      .replaceAll(nsc_cataloging_edit_record, " [TITLE] (Record # [BIBLIONUMBER])")
-      .replaceAll(nsc_borrower_checkouts, " [BORROWERNAME] ([BORROWERNUMBER])")
-      .replaceAll(nsc_borrower_batch, " [BORROWERNAME] ([BORROWERNUMBER]) >")
-      .replaceAll(nsc_borrower_details, " [BORROWERNAME] ([BORROWERNUMBER]) >")
-      .replaceAll(nsc_borrower_debit_details, " ([ACCOUNTLINES_ID])")
-      .replaceAll(nsc_borrower_credit_details, " ([ACCOUNTLINES_ID])")
-      .replaceAll(nsc_catalog_search_results, "'[SEARCH_TERMS]'")
+      .replace(nsc_catalog_details, " [TITLE] >")
+      .replace(nsc_cataloging, " [TITLE] (Record # [BIBLIONUMBER]) >")
+      .replace(nsc_cataloging_edit_record, " [TITLE] (Record # [BIBLIONUMBER])")
+      .replace(nsc_borrower_checkouts, " [BORROWERNAME] ([BORROWERNUMBER])")
+      .replace(nsc_borrower_batch, " [BORROWERNAME] ([BORROWERNUMBER]) >")
+      .replace(nsc_borrower_details, " [BORROWERNAME] ([BORROWERNUMBER]) >")
+      .replace(nsc_borrower_debit_details, " ([ACCOUNTLINES_ID])")
+      .replace(nsc_borrower_credit_details, " ([ACCOUNTLINES_ID])")
+      .replace(nsc_catalog_search_results, "'[SEARCH_TERMS]'")
+    
+    console.log('nsc_breadcrumbs_simplified: ' + nsc_breadcrumbs_simplified);
+    
+    
     
   //replaces values from nsc_breadcrumbs_simplified into filename
     let nsc_breadcrumbs_to_filename = nsc_breadcrumbs_simplified
@@ -294,6 +389,8 @@ $(document).ready(function () {
       .replaceAll("____", "_")
       .replaceAll("___", "_")
       .replaceAll("__", "_")
+    
+    console.log('nsc_breadcrumbs_to_filename: ' + nsc_breadcrumbs_to_filename);
     
     //BEGIN adds function to #ngm_get_breadcrumbs button
       $("#ngm_get_breadcrumbs").click(function() {
