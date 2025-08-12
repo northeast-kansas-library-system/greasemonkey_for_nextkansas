@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.10
+// @version        1.11
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -640,6 +640,9 @@ $(document).ready(function () {
         $('#nsc_test_toggle').hide();
         $('#test_server_warning').hide();
         $('.nsc_upgrade_alert').hide();
+        $('.breadcrumb-item a').html('[BORROWERNAME]');
+        
+        $('#nsc_link_widget').toggle();
       });
     
     
@@ -659,34 +662,45 @@ $(document).ready(function () {
 
       $('#admin_preferences .preferences .name-cell').click(function(){
 
-        
-
-
         var full_url = window.location.toString()
 
-        var system_preference = $(this).text().trim();
+        var system_preference = $(this).text().trim().replace(/ {2,}/g, '').replace(/ \n/g, '\n').replace(/(\n){2,}/g, '-');
         
-        console.log('system_preference: ' + system_preference)
+        var system_preference_lower = system_preference.toLowerCase();
         
-        var system_preference_input = $(this).next('input').val();
+        $(this).next().addClass(system_preference + '_value');
+        
+        var system_preference_input = $('.' + system_preference + '_value input').val() || '';
+        
+        var system_preference_dropdown = $('.' + system_preference + '_value option[selected="selected"]').text().trim().toString().replace(/ {2,}/g, '').replace(/ \n/g, '\n').replace(/(\n){2,}/g, ' // ') || '';
+        
+        if (system_preference_input == '') {
+          var current_input = ''
+        } else {
+          var current_input = ('\nCurrent input values = ' + system_preference_input)
+        }
+        
+        if (system_preference_dropdown == '') {
+          var current_dropdown = ''
+        } else {
+          var current_dropdown = ('\nCurrent dropdown values = ' + system_preference_dropdown)
+        }
         
         var sys_pref_page = $(this).closest('.prefs-tab').find('h2').text().trim();
         
         var sys_pref_subsection = $(this).closest('.page-section').find('h3').text().trim();
 
-
-
-        console.log('\n\nHow to get to -' + system_preference +  '- in the Koha system preferences' +
+        console.log('\n\nHow to get to - ' + system_preference +  ' - in the Koha system preferences' +
+                    '\n  Go to: ' + ngm_breadcrumbs + 
+                    '\n    then to: ' + sys_pref_page +
+                    '\n      then to: ' + sys_pref_subsection + 
+                    '\n        then to: ' + system_preference +
+                    current_input +
+                    current_dropdown +
                     '\n' +
-                    '\nGo to: ' + ngm_breadcrumbs + 
-                    '\nthen to: ' + sys_pref_page +
-                    '\nthen to: ' + sys_pref_subsection + 
-                    '\nthen to: ' + system_preference +
-                    '\n' +
-                    '\nURL: ' + ngm_partial_url
+                    '\nSee the Koha manual at https://koha-community.org/manual/latest/en/html/circulationpreferences.html#' + system_preference_lower
         );
-        
-        console.log('system_preference_input: ' + system_preference_input)
+
 
       });
     
