@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.11
+// @version        1.12
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -217,14 +217,14 @@ $(document).ready(function () {
       
       ////BEGIN google search with publisher
         $('#aspen_image').click(function() { 
-          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
+          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ').replaceAll('&', 'and');
           console.log('title: ' +  title)
           window.open('http://www.google.com/search?q=' + title + '&tbm=isch', '_blank');
         });
       
       ////BEGIN google search with publisher
         $('#aspen_image_wp').click(function() { 
-          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
+          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ').replaceAll('&', 'and');
           var publisher = ($('meta[property*="publisher"]').attr('content') || ' ');
           console.log('title: ' +  title)
           console.log('publisher: ' +  publisher)
@@ -233,7 +233,7 @@ $(document).ready(function () {
 
       ////BEGIN google search with publisher
         $('#aspen_image_movie').click(function() { 
-          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ');
+          var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ').replaceAll('&', 'and');
           console.log('title: ' +  title)
           window.open('http://www.google.com/search?q=' + title + ' movie poster' + '&tbm=isch', '_blank');
         });
