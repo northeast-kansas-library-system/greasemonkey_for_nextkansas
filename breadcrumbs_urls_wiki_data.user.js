@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.9
+// @version        1.10
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -83,44 +83,50 @@ $(document).ready(function () {
           '#main-content-with-sidebar label'
          ).click(function(){
           
-          var base_url = window.location.origin;
+          var full_url = window.location.toString()
+          var domain = window.location.origin;
           var get_there_url = $('.breadcrumb li a').last().attr('href');
           var get_there_breadcrumb = $('.breadcrumb').text();
           var get_there_breadcrumbs = get_there_breadcrumb.replaceAll('» ', ' > ')
           var get_there_panel_title = $('.admin-menu-section.panel.active .panel-title').text();
           var get_there_breadcrumb_to_page = get_there_breadcrumb.lastIndexOf('» ');
-          var get_there_page = get_there_breadcrumb.substr(get_there_breadcrumb_to_page + 1);
+          var get_there_page = get_there_breadcrumb.substr(get_there_breadcrumb_to_page + 1).trim();
           var get_there_header = ($(this).parents().find('h1').first().text().trim() || $(this).parents('.form-group').find('.h2').first().text().trim() || '');
-          var get_there_panel = $(this).parents('.form-group').find('a').first().text().trim();
-          var get_there_sub_panel = $(this).parents('.form-group .form-group').find('a').text().trim();
+          
+          var get_there_panel_raw = $(this).parents('.form-group').find('a').first().text().trim();
+          if (get_there_panel_raw === '') {var get_there_panel = ('')} else {var get_there_panel = ('\nthen go to: ' + get_there_panel_raw)}
+
+          var get_there_sub_panel_raw = $(this).parents('.form-group .form-group').find('a').text().trim();
+          if (get_there_sub_panel_raw === '') {var get_there_sub_panel = ('')} else {var get_there_sub_panel = ('\nthen go to: ' + get_there_sub_panel_raw)}
+          
+          
           var get_there_section_label_raw = ($(this).parent('.form-group').find('label').text().trim() || $(this).parents('.form-group').first().find('label').first().text().trim() || '');
           var get_there_section_label = get_there_section_label_raw.replaceAll('Required', '')
+          
+          const url = window.location.href;
+          if (url.includes("object")) {var editable_object = ('\n\nSelect the -' + get_there_page + '- object you wish to edit\n')} else {var editable_object = ('')}
 
           
-          console.log('\n\nHow to get there: \n' + 
-                      '\nPage URL: ' + base_url + get_there_url  + 
-                      '\nBreadcrumbs: ' + get_there_breadcrumbs +
-                      '\nSidebar: ' + get_there_panel_title + 
-                      '\nSidebar section: ' + get_there_page +
-                      '\nPage title: ' + get_there_page + 
+          console.log('\n\nHow to get to "' + get_there_page + ' > ' + get_there_section_label + '" in the Aspen Discovery administration settings\n' +
+                      
+                      '\nGo to: ' + get_there_panel_title + 
                       '\n' +
-                      '\nGo to: ' + get_there_panel +
-                      '\nGo to: ' + get_there_sub_panel + 
-                      '\nGo to: ' + get_there_section_label + 
-                      '\n\n'
+                      '\nthen go to:  ' + get_there_page +
+                      editable_object +
+                      get_there_panel +
+                      get_there_sub_panel + 
+                      '\nthen go to:  ' + get_there_section_label + 
+                      '\n' +
+                      '\nAspen URL: http://YOUR_ASPEN_DOMAIN' + get_there_url  + 
+                      '\nDestination breadcrumbs: ' + get_there_breadcrumbs +
+                      '\nDestination page title: ' + get_there_page +
+                      '\n' +
+                      '\nMy domain: ' + domain +
+                      '\nFull reference URL: ' + full_url
                      );
           
         });
-      
-      
-      //BEGIN adds function to #aspen_get_focus button
-        $("#aspen_get_focus").click(function() {
-          
-        });      
-      
-      
-      
-      
+
       //BEGIN generic screenshot 
         $('#aspen_generic_screenshot').click(function() { 
           $('#nsc').hide(); 
@@ -232,8 +238,50 @@ $(document).ready(function () {
           window.open('http://www.google.com/search?q=' + title + ' movie poster' + '&tbm=isch', '_blank');
         });
       
+      $('#WebBuilder-PortalCells #panelStatus_Layout_Settings #propertyRowmakeCellAccordion').after('<br><button id="accordion_default" type="button" style="margin: 5px;" class="btn btn-default btn-xs">Accordion default</button>');
+      
+      $('#accordion_default').click(function() { 
+        $('#accordion_body_Layout_Settings input').val('12');
+      });
+      
     }  
+    
+    $('#Admin-Placards #propertyRowlibraries .controls').before('<br><button id="hoopla_placard_locations" type="button" style="margin: 5px;" class="btn btn-default btn-xs">Select hoopla libraries</button>');
+
+    $('#hoopla_placard_locations').click(function (){
+      $('#libraries_54').prop('checked', false);
+      $('#libraries_8').prop('checked', false);
+      $('#libraries_15').prop('checked', false);
+      $('#libraries_33').prop('checked', false);
+      $('#libraries_35').prop('checked', false);
+      $('#libraries_36').prop('checked', false);
+      $('#libraries_51').prop('checked', false);
+      $('#libraries_53').prop('checked', false);
+      $('#libraries_52').prop('checked', false);
+      $('#libraries_48').prop('checked', false);
+      $('#locations_8').prop('checked', false);
+      $('#locations_18').prop('checked', false);
+      $('#locations_39').prop('checked', false);
+      $('#locations_40').prop('checked', false);
+      $('#locations_41').prop('checked', false);
+      $('#locations_42').prop('checked', false);
+      $('#locations_43').prop('checked', false);
+      $('#locations_55').prop('checked', false);
+      $('#locations_38').prop('checked', false);
+      $('#locations_36').prop('checked', false);
+    }); 
+ 
+
+
   }
+//END Aspen Section
+  
+  
+  
+  
+  
+  
+  
     
   if (koha === true) { 
     
@@ -241,7 +289,7 @@ $(document).ready(function () {
     
   //Creates links in upper right of Koha  
     $('#user-menu').append(
-      '<li class="nav-item dropdown" id="nsc_link_widget">' + 
+      '<li class="nav-item dropdown" id="nsc_link_widget" style="display: none;">' + 
         '<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-toggle="dropdown">' + 
           'Links<b class="caret"></b>' + 
         '</a>' + 
@@ -256,10 +304,17 @@ $(document).ready(function () {
           '<li><a class="nav-link" id="ngm_wiki_data_jq_update" href="#">Get wiki data updated jQuery</a></li>' + 
           '<li><a class="nav-link" id="ngm_wiki_data_sql_new" href="#">Get wiki data new SQL</a></li>' + 
           '<li><a class="nav-link" id="ngm_wiki_data_sql_update" href="#">Get wiki data updated SQL</a></li>' + 
-          '<li><a class="nav-link" id="ngm_generic_screenshot" href="#">Screenshot</a></li>' + 
+          '<li><a class="nav-link" id="ngm_generic_screenshot" href="#">Screenshot</a></li>'  + 
+          '<li style="color: white">Superlibrarian stuff</a></li>'  + 
+          '<li><a class="nav-link" id="ngm_show_hidden_circ" href="#">Show hidden circulation tools</a></li>' + 
         '</ul>' +
       '</li>'
     );
+    
+  //Links only available when hovering on header
+    $('#header').parent().hover(function () {
+      $('#nsc_link_widget').toggle();
+    });
   
   //Creates "Breadcrumbs, URL, and Koha version" variables
     var ngm_breadcrumbs = $('#breadcrumbs ol li').text().trim().replace(/\n/g, '>').replace(/\s+/g, ' ').replace(/> /g, '>').replace(/>+/g, ' > ');
@@ -364,9 +419,9 @@ $(document).ready(function () {
       .replace(nsc_catalog_details, " [TITLE] >")
       .replace(nsc_cataloging, " [TITLE] (Record # [BIBLIONUMBER]) >")
       .replace(nsc_cataloging_edit_record, " [TITLE] (Record # [BIBLIONUMBER])")
-      .replace(nsc_borrower_checkouts, " [BORROWERNAME] ([BORROWERNUMBER])")
-      .replace(nsc_borrower_batch, " [BORROWERNAME] ([BORROWERNUMBER]) >")
-      .replace(nsc_borrower_details, " [BORROWERNAME] ([BORROWERNUMBER]) >")
+      .replace(nsc_borrower_checkouts, " [BORROWERNAME] ([CARDNUMBER])")
+      .replace(nsc_borrower_batch, " [BORROWERNAME] ([CARDNUMBER]) >")
+      .replace(nsc_borrower_details, " [BORROWERNAME] ([CARDNUMBER]) >")
       .replace(nsc_borrower_debit_details, " ([ACCOUNTLINES_ID])")
       .replace(nsc_borrower_credit_details, " ([ACCOUNTLINES_ID])")
       .replace(nsc_catalog_search_results, "'[SEARCH_TERMS]'")
@@ -394,7 +449,7 @@ $(document).ready(function () {
     
     //BEGIN adds function to #ngm_get_breadcrumbs button
       $("#ngm_get_breadcrumbs").click(function() {
-        navigator.clipboard.writeText(nsc_breadcrumbs_simplified + '\r\n');
+        navigator.clipboard.writeText(nsc_breadcrumbs_simplified + '\r\n');    
       });
     
     //BEGIN adds function to #ngm_get_url button
@@ -585,7 +640,57 @@ $(document).ready(function () {
         $('#nsc_test_toggle').hide();
         $('#test_server_warning').hide();
         $('.nsc_upgrade_alert').hide();
-      }); 
+      });
+    
+    
+    //BEGIN show hidden options on circulation
+      $('#ngm_show_hidden_circ').click(function() { 
+        $('.circ-button[href="/cgi-bin/koha/circ/set-library.pl"]').show();
+        $('.circ-button[href="/cgi-bin/koha/cataloguing/addbiblio.pl?frameworkcode=FA"]').show();
+        $('.circ-button[href="/cgi-bin/koha/circ/checkout-notes.pl"]').show();
+        $('.circ-button[href="/cgi-bin/koha/circ/pendingreserves.pl"]').show();
+        $('.circ-button[href="/cgi-bin/koha/circ/branchtransfers.pl"]').show();
+        $('#offline-circulation ').show();
+      });
+
+
+    //BEGIN log how-to-find system preferences console logging
+
+
+      $('#admin_preferences .preferences .name-cell').click(function(){
+
+        
+
+
+        var full_url = window.location.toString()
+
+        var system_preference = $(this).text().trim();
+        
+        console.log('system_preference: ' + system_preference)
+        
+        var system_preference_input = $(this).next('input').val();
+        
+        var sys_pref_page = $(this).closest('.prefs-tab').find('h2').text().trim();
+        
+        var sys_pref_subsection = $(this).closest('.page-section').find('h3').text().trim();
+
+
+
+        console.log('\n\nHow to get to -' + system_preference +  '- in the Koha system preferences' +
+                    '\n' +
+                    '\nGo to: ' + ngm_breadcrumbs + 
+                    '\nthen to: ' + sys_pref_page +
+                    '\nthen to: ' + sys_pref_subsection + 
+                    '\nthen to: ' + system_preference +
+                    '\n' +
+                    '\nURL: ' + ngm_partial_url
+        );
+        
+        console.log('system_preference_input: ' + system_preference_input)
+
+      });
+    
+    
     }
   
   });
