@@ -688,6 +688,8 @@ $(document).ready(function () {
         
         var sys_pref_page = $(this).closest('.prefs-tab').find('h2').text().trim();
         
+        var sys_pref_link = sys_pref_page.toLowerCase().replaceAll(' ', '');
+        
         var sys_pref_subsection = $(this).closest('.page-section').find('h3').text().trim();
 
         console.log('\n\nHow to get to - ' + system_preference +  ' - in the Koha system preferences' +
@@ -698,7 +700,7 @@ $(document).ready(function () {
                     current_input +
                     current_dropdown +
                     '\n' +
-                    '\nSee the Koha manual at https://koha-community.org/manual/latest/en/html/circulationpreferences.html#' + system_preference_lower
+                    '\nProbable link to the Koha manual: https://koha-community.org/manual/latest/en/html/' + sys_pref_link + '.html#' + system_preference_lower
         );
 
 
