@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Koha web page
 // @author         George H. Williams
-// @version        1.12
+// @version        1.15
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -631,7 +631,7 @@ $(document).ready(function () {
         $('.newsitem').hide(); 
         $('#area-userblock').hide(); 
         $('#news303').show(); 
-        $('#koha_version').html('Koha version number'); 
+        $('#helper').before('<h4>' + ngm_koha_version + '</h4>'); 
         $('div[data-lastpass-icon-root]').hide(); 
         $('#checkout_notes_pending .pending-number-link').html('Notes for your library'); 
         $('.lightrope').remove();
@@ -670,20 +670,48 @@ $(document).ready(function () {
         
         $(this).next().addClass(system_preference + '_value');
         
+        var sysprefclass = (system_preference + '_value');
+        
+        var tdbyclass_raw = $('.' + sysprefclass).html();
+        
+        var tdbyclass_enhanced = tdbyclass_raw.replaceAll('<option', ' ZSTART <option').replaceAll('option>', 'option> ZEND ').replace(/<input[^>]*>/g, 'INPUT_VALUE');
+
+        
+        /*.text().trim().toString().replace(/ {2,}/g, '').replace(/ \n/g, '\n').replace(/(\n){2,}/g, ' * ') || '';*/
+        
+        var tdbyclass = tdbyclass_enhanced.replace(/<[^>]*>/g, '')
+          .replace(/ {2,}/g, '')
+          .replace(/ \n/g, '\n')
+          .replace(/(\n){2,}/g, '\n')
+          .replaceAll('ZSTART', ' *Option/')
+          .replaceAll('ZSTART', ' *Option/')
+          .replaceAll('ZEND', ' /option* ')
+          .replaceAll('*Option/\n', '*Option/ ')
+          .replaceAll('\n /option*', ' /option*')
+          .replaceAll('INPUT_VALUE', ' //INPUT VALUE\\\\ ') || '';
+        
+        console.log('sysprefclass: ' + sysprefclass)
+        
+        console.log('tdbyclass_raw: ', tdbyclass_raw);
+        
+        console.log('tdbyclass_enhanced: \n', tdbyclass_enhanced);
+        
+        console.log('tdbyclass: ', tdbyclass);
+        
         var system_preference_input = $('.' + system_preference + '_value input').val() || '';
         
-        var system_preference_dropdown = $('.' + system_preference + '_value option[selected="selected"]').text().trim().toString().replace(/ {2,}/g, '').replace(/ \n/g, '\n').replace(/(\n){2,}/g, ' // ') || '';
+        var system_preference_dropdown = $('.' + system_preference + '_value option[selected="selected"]').text().trim().toString().replace(/ {2,}/g, '').replace(/ \n/g, '\n').replace(/(\n){2,}/g, ' * ') || '';
         
         if (system_preference_input == '') {
           var current_input = ''
         } else {
-          var current_input = ('\nCurrent input values = ' + system_preference_input)
+          var current_input = ('\n  -> Current input values = ' + system_preference_input)
         }
         
         if (system_preference_dropdown == '') {
           var current_dropdown = ''
         } else {
-          var current_dropdown = ('\nCurrent dropdown values = ' + system_preference_dropdown)
+          var current_dropdown = ('\n  -> Current dropdown values = ' + system_preference_dropdown)
         }
         
         var sys_pref_page = $(this).closest('.prefs-tab').find('h2').text().trim();
@@ -702,6 +730,8 @@ $(document).ready(function () {
                     '\n' +
                     '\nProbable link to the Koha manual: https://koha-community.org/manual/latest/en/html/' + sys_pref_link + '.html#' + system_preference_lower
         );
+        
+        
 
 
       });
