@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Aspen and Koha
 // @author         George H. Williams
-// @version        25.10.14
+// @version        25.10.15
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
