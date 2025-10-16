@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Aspen and Koha
 // @author         George H. Williams
-// @version        25.10.16.10.39
+// @version        25.10.16.1400
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -55,6 +55,7 @@ $(document).ready(function () {
               '<li><a id="aspen_image_wp" href="#">Image search w publisher</a></li>' + 
               '<li><a id="aspen_image_movie" href="#">Image search IMDB</a></li>' + 
               '<li><a id="aspen_hoopla_placard" href="#">Hoopla placard button</a></li>' + 
+              '<li><a id="aspen_admin_page_map" href="#">Admin page map</a></li>' + 
             '</ul>' + 
             '</div>'
           );
@@ -162,6 +163,61 @@ $(document).ready(function () {
           navigator.clipboard.writeText(help_center_get_there);
           }
           });
+
+
+//Adds function to button to map all labels and panel titles on admin pages
+$("#aspen_admin_page_map").click(function () {
+
+  //Adds >> to the beginning of panel titles for copying
+    const panelTitlePrepend = "Panel: ";
+    const panelsToModify = document.querySelectorAll('#main-content-with-sidebar form .panel-title a');
+
+    panelsToModify.forEach(element => {
+      element.insertAdjacentText('afterbegin', panelTitlePrepend);
+    });
+  
+  //Adds ** to the beginning of labels for copying
+    const labelPrepend = "Label: ";
+    const labelsToModify = document.querySelectorAll('#main-content-with-sidebar form label');
+
+    labelsToModify.forEach(element => {
+      element.insertAdjacentText('afterbegin', labelPrepend);
+    });
+  
+  //Adds === to the beginning of spans for copying
+    const spanPrepend = "\tSpan: ";
+    const spansToModify = document.querySelectorAll('#main-content-with-sidebar form span');
+
+    spansToModify.forEach(element => {
+      element.insertAdjacentText('afterbegin', spanPrepend);
+    });
+  
+  //Adds - to the beginning of spans for copying
+    const optionPrepend = "\t\tOPt: ";
+    const optionsToModify = document.querySelectorAll('#main-content-with-sidebar form select option');
+
+    optionsToModify.forEach(element => {
+      element.insertAdjacentText('afterbegin', optionPrepend);
+    });
+  
+  //Select elements to copy
+    const copyables = Array.from(document.querySelectorAll('#main-content-with-sidebar form .panel-title a, #main-content-with-sidebar form label, #main-content-with-sidebar form span, #main-content-with-sidebar form select option')).map(title => title.textContent);
+  
+    const allCombined = [...copyables];
+    console.log(allCombined.join('\n'));
+    navigator.clipboard.writeText(allCombined.join('\n'));
+  
+  //Removes >> ** after copying
+    const matchingElements = document.querySelectorAll('#main-content-with-sidebar form .panel-title a, #main-content-with-sidebar form label, #main-content-with-sidebar form span, #main-content-with-sidebar form select option');
+
+    matchingElements.forEach(element => {
+      if (element.textContent.length >= 6) {
+        element.textContent = element.textContent.slice(6);
+      }
+    });
+  
+});
+        
         
         //BEGIN generic screenshot 
           $('#aspen_generic_screenshot').click(function() { 
@@ -179,7 +235,6 @@ $(document).ready(function () {
             var get_there_panel_title = $('.admin-menu-section.panel.active .panel-title').text();
             var get_there_breadcrumb_to_page = get_there_breadcrumb.lastIndexOf('» ');
             var get_there_page = get_there_breadcrumb.substr(get_there_breadcrumb_to_page + 1).trim();
-            $('#nsc').hide(); 
             $('#header-logo').parent().parent().html('<h1 style="font-weight: bold;	padding: 8px 0 7px 0;">Aspen Training screenshot</h1>');
             $('.menu-bar-label:contains("State Library")').parent().hide();
             $('#account-menu-dropdown span').html('Your username').attr('style','padding-right: 10px'); 
@@ -198,20 +253,20 @@ $(document).ready(function () {
             $('.adminTableRegion table td[aria-label~="categories"]').text('My ' + get_there_page + ' categories');
             $('.adminTableRegion table td[aria-label~="baseUrl"]').text('https//{your_aspen_url}');
             $('input').val('');
-            $('#propertyRowaudiences label[for^="audiences"]:gt(2)').hide();
+            $('#propertyRowaudiences label[for^="audiences"]:gt(2)').remove();
             $('#propertyRowaudiences .checkbox label[for^="audiences"]:nth-child(1)').html('<input type="checkbox"> Audicnce 1<br>');
             $('#propertyRowaudiences .checkbox label[for^="audiences"]:nth-child(2)').html('<input type="checkbox"> Audicnce 2<br>');
-            $('#propertyRowcategories label[for^="categories"]:gt(2)').hide();
+            $('#propertyRowcategories label[for^="categories"]:gt(2)').remove();
             $('#propertyRowcategories .checkbox label[for^="categories"]:nth-child(1)').html('<input type="checkbox"> Category 1<br>');
             $('#propertyRowcategories .checkbox label[for^="categories"]:nth-child(2)').html('<input type="checkbox"> Category 2<br>');
-            $('#propertyRowlibraries label[for^="libraries"]:gt(2)').hide();
+            $('#propertyRowlibraries label[for^="libraries"]:gt(2)').remove();
             $('#propertyRowlibraries .checkbox label[for^="libraries"]:nth-child(1)').html('<input type="checkbox"> Library 1<br>');
             $('#propertyRowlibraries .checkbox label[for^="libraries"]:nth-child(2)').html('<input type="checkbox"> Library 2<br>');
-            $('#propertyRowlocations label[for^="locations"]:gt(2)').hide();
+            $('#propertyRowlocations label[for^="locations"]:gt(2)').remove();
             $('#propertyRowlocations .checkbox label[for^="locations"]:nth-child(1)').html('<input type="checkbox"> Location 1<br>');
             $('#propertyRowlocations .checkbox label[for^="locations"]:nth-child(2)').html('<input type="checkbox"> Location 2<br>');
             
-            $('#propertyRowptypes label[for^="ptypes"]:gt(2)').hide();
+            $('#propertyRowptypes label[for^="ptypes"]:gt(2)').remove();
             $('#propertyRowptypes .checkbox label[for^="ptypes"]:nth-child(1)').html('<input type="checkbox"> Patron Type 1<br>');
             $('#propertyRowptypes .checkbox label[for^="ptypes"]:nth-child(2)').html('<input type="checkbox"> Patron Type 2<br>');
             
