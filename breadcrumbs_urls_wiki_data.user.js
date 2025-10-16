@@ -2,7 +2,7 @@
 // @name           Koha - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Aspen and Koha
 // @author         George H. Williams
-// @version        25.10.15
+// @version        25.10.16.10.39
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/breadcrumbs_urls_wiki_data.user.js
@@ -92,8 +92,9 @@ $(document).ready(function () {
             '#main-content-with-sidebar select, ' + 
             '#main-content-with-sidebar textarea, ' + 
             '#main-content-with-sidebar #tinymce, ' + 
-            '#main-content-with-sidebar label'
-            ).click(function(e){ if (e.shiftKey) {
+            '#main-content-with-sidebar label,' +
+            '#main-content-with-sidebar p.h2'
+            ).click(function(e){ if (e.ctrlKey) {
             
             
             var full_url = window.location.toString()
@@ -112,6 +113,8 @@ $(document).ready(function () {
             var get_there_sub_panel_raw = $(this).parents('.form-group .form-group').find('a').text().trim();
             if (get_there_sub_panel_raw === '') {var get_there_sub_panel = ('')} else {var get_there_sub_panel = ('then go to: ' + get_there_sub_panel_raw)}
             
+            var get_there_sub_panel_heading = $(this).parents('.form-group .form-group').find('p.h2').text().trim();
+            if (get_there_sub_panel_heading === '') {var get_there_sub_panel = ('')} else {var get_there_sub_panel = ('then go to: ' + get_there_sub_panel_heading)}
             
             var get_there_section_label_raw = ($(this).parent('.form-group').find('label').text().trim() || $(this).parents('.form-group').first().find('label').first().text().trim() || '');
             var get_there_section_label = get_there_section_label_raw.replaceAll('Required', '')
@@ -140,7 +143,7 @@ $(document).ready(function () {
           
             
           var help_center_get_there = (
-            'Option name: ' + get_there_section_label +
+            'Option name: ' + get_there_section_label + get_there_sub_panel_heading +
             '\nAspen URL: http://YOUR_ASPEN_DOMAIN' + get_there_url  + 
             '\nBreadcrumbs: ' + get_there_breadcrumbs +
             '\nPage title: ' + get_there_page +
@@ -159,7 +162,7 @@ $(document).ready(function () {
           navigator.clipboard.writeText(help_center_get_there);
           }
           });
-  
+        
         //BEGIN generic screenshot 
           $('#aspen_generic_screenshot').click(function() { 
             $('#nsc').hide(); 
