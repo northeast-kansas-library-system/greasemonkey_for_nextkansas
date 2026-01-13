@@ -2,7 +2,7 @@
 // @name           Koha and Aspen - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Aspen and Koha
 // @author         George H. Williams
-// @version        26.01.13
+// @version        26.01.13.02
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL    https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/koha_aspen_helpers.js
@@ -278,7 +278,7 @@ $(document).ready(function () {
         var get_there_panel_title = $('.admin-menu-section.panel.active .panel-title').text();
         var get_there_breadcrumb_to_page = get_there_breadcrumb.lastIndexOf('» ');
         var get_there_page = get_there_breadcrumb.substr(get_there_breadcrumb_to_page + 1).trim();
-        $('#header-logo').parent().parent().html('<h1 style="font-weight: bold;	padding: 8px 0 7px 0;">Aspen help center</h1>');
+        $('#header-logo').parent().parent().html('<h1 style="font-weight: bold;	padding: 8px 0 7px 0;">Aspen help center<br>screenshot</h1>');
         $('a:contains("Search other Next catalogs")').hide();
         $('.menu-bar-label:contains("State Library")').parent().hide();
         $('#account-menu-dropdown span').html('Your username').attr('style', 'padding-right: 10px');
