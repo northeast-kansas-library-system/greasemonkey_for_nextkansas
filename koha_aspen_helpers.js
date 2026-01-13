@@ -5,9 +5,12 @@
 // @version        26.01.13
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @downloadURL    https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/koha_aspen_helpers.js
+// @updateURL      https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/koha_aspen_helpers.js
 // ==/UserScript==
 
-/* ========== Add links to Koha that can facilitate easy commenting ========== */
+/* ========== Helpful things for Koha and Aspen administrators ========== */
+
 
 $(document).ready(function () {
 
