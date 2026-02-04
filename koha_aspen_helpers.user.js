@@ -2,7 +2,7 @@
 // @name           Koha and Aspen - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Aspen and Koha
 // @author         George H. Williams
-// @version        26.01.13.02
+// @version        26.02.03.02
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL    https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/koha_aspen_helpers.js
@@ -43,6 +43,11 @@ $(document).ready(function () {
     if (aspen_discovery_staff === true) {
 
       console.log('aspen_discovery_staff: ' + aspen_discovery_staff);
+      
+$('#propertyRowsnippet #snippet').one('click', function() { 
+  $('#snippet').css({'height': 'auto', 'width': '85%', 'overflow-y': 'hidden;'}); 
+  $('#snippet').height(this.scrollHeight).width(this.scrollWidth);
+}); 
 
       //Creates links in upper right of Aspen Discovery 
       $('#language-selection-header').before('' +
