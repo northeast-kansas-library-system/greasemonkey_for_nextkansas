@@ -2,7 +2,7 @@
 // @name           Koha and Aspen - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Aspen and Koha
 // @author         George H. Williams
-// @version        26.02.03.02
+// @version        26.02.04.01
 // @grant          none
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL    https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/koha_aspen_helpers.js
@@ -283,7 +283,7 @@ $('#propertyRowsnippet #snippet').one('click', function() {
         var get_there_panel_title = $('.admin-menu-section.panel.active .panel-title').text();
         var get_there_breadcrumb_to_page = get_there_breadcrumb.lastIndexOf('» ');
         var get_there_page = get_there_breadcrumb.substr(get_there_breadcrumb_to_page + 1).trim();
-        $('#header-logo').parent().parent().html('<h1 style="font-weight: bold;	padding: 8px 0 7px 0;">Aspen help center<br>screenshot</h1>');
+        $('#header-logo').parent().parent().html('<h1 style="font-weight: bold;	padding: 8px 0 7px 0;">Aspen training<br>screenshot</h1>');
         $('a:contains("Search other Next catalogs")').hide();
         $('.menu-bar-label:contains("State Library")').parent().hide();
         $('#account-menu-dropdown span').html('Your username').attr('style', 'padding-right: 10px');
@@ -351,10 +351,8 @@ $('#propertyRowsnippet #snippet').one('click', function() {
 
 
         $('.current_admin_page')
-          .wrap('<span style="padding-top: 5px; padding-bottom: 5px; border: 5px solid #1F9BDE;">')
-          .before('<span style="color: #1f9bde; font-size: 200%;">' +
-            '<i class="fas fa-long-arrow-alt-right" style="position: relative; top: 5px; margin-right: 10px"></i></span>')
-          .after('<span style="color: #1f9bde; font-size: 200%;">' +
+          .wrap('<span style="padding-top: 5px; padding-bottom: 5px; border-bottom: 5px solid #1F9BDE;">')
+          .after('<span style="color: #1f9bde; font-size: 250%;">' +
             '<i class="fas fa-long-arrow-alt-left" style="position: relative; top: 5px; margin-left: 10px"></i></span>')
       });
 
@@ -633,24 +631,22 @@ $('#propertyRowsnippet #snippet').one('click', function() {
     console.log('ngm_partial_url: ' + ngm_partial_url);
     console.log('ngm_koha_version: ' + ngm_koha_version);
 
-
     //Creates "today" variable
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
     var yyyy = today.getFullYear();
     var hh = today.getHours();
-    var mm = today.getMinutes();
+    var min = today.getMinutes();
 
     today = yyyy + '-' + mm + '-' + dd;
 
     console.log('today: ' + today);
+    console.log('yyyy: ' + yyyy);
     console.log('dd: ' + dd);
     console.log('mm: ' + mm);
-    console.log('yyyy: ' + yyyy);
     console.log('hh: ' + hh);
-    console.log('mm: ' + mm);
-    console.log('today: ' + today);
+    console.log('min: ' + min);
 
     //Creates replacement variables for some URL information
     const nsc_base = /^.*(?=(\/cgi))/
@@ -949,7 +945,7 @@ $('#propertyRowsnippet #snippet').one('click', function() {
         ' - ' +
         hh +
         ':' +
-        mm +
+        min +
         ' -- ' +
         ngm_koha_version +
         '</p></div>'
