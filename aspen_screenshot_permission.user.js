@@ -5,6 +5,9 @@
 // @match          http://nextkansas.org/*
 // @match          https://nextkansas.org/*
 // @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+// @downloadURL    https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/refs/heads/main/aspen_screenshot_permission.user.js
+// @updateURL      https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/refs/heads/main/aspen_screenshot_permission.user.js
+
 // ==/UserScript==
 
 $(document).ready(function () {
@@ -31,3 +34,5 @@ $('.grid-col--2 .adminSection.grid-item .adminPanel').css({'border': '10px solid
   
   
 });
+
+//https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/refs/heads/main/aspen_screenshot_permission.user.js
