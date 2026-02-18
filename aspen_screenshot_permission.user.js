@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name     Aspen screenshot - permissions
-// @version  2026.02.18.02
+// @version  2026.02.18.03
 // @grant    none
 // @match          http://nextkansas.org/*
 // @match          https://nextkansas.org/*
 // @downloadURL    https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/refs/heads/main/aspen_screenshot_permission.user.js
 // @updateURL      https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/refs/heads/main/aspen_screenshot_permission.user.js
+// Upgraded from Greasemonkey to Violentmonkey
 
 // ==/UserScript==
 
