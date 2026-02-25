@@ -2,7 +2,7 @@
 // @name           Koha and Aspen - get breadcrumbs; URLs; and Wiki data from Koha
 // @description    Generate data from Aspen and Koha
 // @author         George H. Williams
-// @version        26.02.18.01
+// @version        26.02.25.01
 // @grant          none
 // @downloadURL    https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/koha_aspen_helpers.js
 // @updateURL      https://raw.githubusercontent.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/refs/heads/main/koha_aspen_helpers.js
@@ -17,565 +17,530 @@ $(document).ready(function () {
   /* Set variables to determine which codes run on which sites */
 
   //Are we on Koha
-  let nsc_is_koha = $('head > title').text();
-  let koha = nsc_is_koha.includes('Koha')
+    let nsc_is_koha = $('head > title').text();
+    let koha = nsc_is_koha.includes('Koha')
 
   //Are we in Aspen
-  let nsc_is_aspen = $('#install-info small').text();
-  let aspen_discovery = nsc_is_aspen.includes('Aspen Discovery')
+    let nsc_is_aspen = $('#install-info small').text();
+    let aspen_discovery = nsc_is_aspen.includes('Aspen Discovery')
 
   //If we're in Aspen, is it a staff account
-  let nsc_is_staff = $('a[href="/MyAccount/StaffSettings"]').text();
-  let aspen_discovery_staff = nsc_is_staff.includes('Staff Settings')
+    let nsc_is_staff = $('a[href="/MyAccount/StaffSettings"]').text();
+    let aspen_discovery_staff = nsc_is_staff.includes('Staff Settings')
 
   //If we're in Aspen, are we on an Admin page
-  let nsc_is_admin = $('.sidebar-title').text();
-  let aspen_admin_page = nsc_is_admin.includes('Administration Options')
+    let nsc_is_admin = $('.sidebar-title').text();
+    let aspen_admin_page = nsc_is_admin.includes('Administration Options')
 
   /* Aspen Discovery section */
 
-  //If we're in Aspen run this code
-  if (aspen_discovery === true) {
+    //If we're in Aspen run this code
+      if (aspen_discovery === true) {
 
-    console.log('aspen_discovery: ' + aspen_discovery);
+        //Log "aspen_discovery: true" if we are on Aspen
+        console.log('aspen_discovery: ' + aspen_discovery);
 
-    //If we're logged in as staff, run this code
-    if (aspen_discovery_staff === true) {
+        //If we're logged in as staff, run this code
+          if (aspen_discovery_staff === true) {
 
-      console.log('aspen_discovery_staff: ' + aspen_discovery_staff);
-      
-$('#propertyRowsnippet #snippet').one('click', function() { 
-  $('#snippet').css({'height': 'auto', 'width': '85%', 'overflow-y': 'hidden;'}); 
-  $('#snippet').height(this.scrollHeight).width(this.scrollWidth);
-}); 
+            //Log "aspen_discovery_staff: true" if we are a staff member
+              console.log('aspen_discovery_staff: ' + aspen_discovery_staff);
 
-      //Creates links in upper right of Aspen Discovery 
-      $('#language-selection-header').before('' +
-        '<div id="nsc" class="col-tn-12 col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-right" style="text-align: right;">' +
-        '<a id="nsc_dropdown" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" style="display: none;">Next Search Catalog Links' +
-        '</a>' +
-        '<ul class="dropdown-menu dropdown-menu-right">' +
-        '<li><a id="aspen_get_url">Copy the URL</a></li>' +
-        '<li><a id="aspen_get_breadcrumbs">Copy the breadcrumbs</a></li>' +
-        '<li><a id="aspen_get_there">How to get there</a></li>' +
-        '<li><a id="aspen_generic_screenshot" href="#">Training screenshot</a></li>' +
-        '<li><a id="aspen_help_center_screenshot" href="#">Help center screenshot</a></li>' +
-        '<li><a id="aspen_hide_admin_panels" href="#">Hide panels</a></li>' +
-        '<li><a id="aspen_force_reindex" href="#">Force reindex</a></li>' +
-        '<li><a id="aspen_get_group_hrefs" href="#">Get links to groups</a></li>' +
-        '<li><a id="aspen_open_editions" href="#">Open editions</a></li>' +
-        '<li><a id="aspen_get_record_hrefs" href="#">Get links to records search</a></li>' +
-        '<li><a id="aspen_get_koha_hrefs" href="#">Get links to Koha for Koha items</a></li>' +
-        '<li><a id="aspen_goto_staff" href="#">Go to staff client</a></li>' +
-        '<li><a id="aspen_image" href="#">Image search</a></li>' +
-        '<li><a id="aspen_image_wp" href="#">Image search w publisher</a></li>' +
-        '<li><a id="aspen_image_movie" href="#">Image search IMDB</a></li>' +
-        '<li><a id="aspen_hoopla_placard" href="#">Hoopla placard button</a></li>' +
-        '<li><a id="aspen_admin_page_map" href="#">Admin page map</a></li>' +
-        '</ul>' +
-        '</div>' +
-        '<div id="div_selector_thing" style="display: none;" class="col-tn-12 col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-right" style="text-align: right;">' +
-        '<select id="propertyRowSelect"></select>' +
-        '</div>'
-      );
+            //Creates "Staff helper links" in upper right corner on Aspen Discovery 
+              $('#language-selection-header').before('' +
+                '<div id="nsc" class="col-tn-12 col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-right" style="text-align: right;">' +
+                '<a id="nsc_dropdown" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" style="display: none;">Staff helper links' +
+                '</a>' +
+                '<ul class="dropdown-menu dropdown-menu-right">' +
+                '<li><a id="aspen_get_url">Copy the URL</a></li>' +
+                '<li><a id="aspen_get_breadcrumbs">Copy the breadcrumbs</a></li>' +
+                '<li><a id="aspen_training_screenshot" href="#">Training screenshot</a></li>' +
+                '<li><hr></li>' +
+                '<li><a id="aspen_hide_admin_panels" href="#">Hide panels</a></li>' +
+                '<li><a id="aspen_force_reindex" href="#">Force reindex</a></li>' +
+                '<li><a id="aspen_get_group_hrefs" href="#">Get links to groups</a></li>' +
+                '<li><a id="aspen_open_editions" href="#">Open editions</a></li>' +
+                '<li><a id="aspen_get_record_hrefs" href="#">Get links to records search</a></li>' +
+                '<li><a id="aspen_get_koha_hrefs" href="#">Get links to Koha for Koha items</a></li>' +
+                '<li><a id="aspen_goto_staff" href="#">Go to staff client</a></li>' +
+                '<li><a id="aspen_image" href="#">Image search</a></li>' +
+                '<li><a id="aspen_image_wp" href="#">Image search w publisher</a></li>' +
+                '<li><a id="aspen_image_movie" href="#">Image search IMDB</a></li>' +
+                '<li><a id="aspen_hoopla_placard" href="#">Hoopla placard button</a></li>' +
+                '<li><a id="aspen_admin_page_map" href="#">Admin page map</a></li>' +
+                '</ul>' +
+                '</div>' +
+                '<div id="div_selector_thing" style="display: none;" class="col-tn-12 col-xs-4 col-sm-4 col-md-4 col-lg-4 pull-right" style="text-align: right;">' +
+                '<select id="propertyRowSelect"></select>' +
+                '</div>'
+              );
 
-      $('#aspen_hide_admin_panels').click(function () {
-        $('#div_selector_thing').show();
-      });
+            //Make "Staff helper links" only visible when hovering on the header 
+              $('#page-header').hover(function () {
+                $('#nsc_dropdown').toggle();
+              });
 
-      //Make dropdown visible when hovering on the header 
-      $('#page-header').hover(function () {
-        $('#nsc_dropdown').toggle();
-      });
-
-      //Creates variables for URL
-      var aspen_url = $(location).attr('href');
-      var aspen_discovery_url = aspen_url.replace('#', '%23');
-      console.log('aspen_url: ' + aspen_url);
-      console.log('aspen_discovery_url: ' + aspen_discovery_url);
-
-      //Creates variables for Breadcrumbs      
-      var aspen_breadcrumb = $('.breadcrumb').text();
-      var aspen_breadcrumbs = aspen_breadcrumb.replaceAll('» ', ' > ').replace(/\s+/g, ' ').trim();
-      console.log('aspen_breadcrumbs: ' + aspen_breadcrumbs);
-
-      //BEGIN adds function to #ngm_get_url button
-      $("#aspen_get_url").click(function () {
-        navigator.clipboard.writeText(aspen_discovery_url + '\r\n');
-      });
-
-      //BEGIN adds function to #aspen_breadcrumbs button
-      $("#aspen_get_breadcrumbs").click(function () {
-        navigator.clipboard.writeText(aspen_breadcrumbs + '\r\n');
-      });
-
-      //Creates click function for Admin section
-      //If you're on an Aspen Options page and you hold down ctrl-shift and then click, you'll run this code to copy how-to-get-here text
-      $('#main-content-with-sidebar input, ' +
-        '#main-content-with-sidebar select, ' +
-        '#main-content-with-sidebar textarea, ' +
-        '#main-content-with-sidebar #tinymce, ' +
-        '#main-content-with-sidebar label,' +
-        '#main-content-with-sidebar p.h2'
-      ).click(function (e) {
-        if (e.ctrlKey && e.shiftKey) {
-
-          var full_url = window.location.toString()
-          var domain = window.location.origin;
-          var get_there_url = $('.breadcrumb li a').last().attr('href');
-          var get_there_breadcrumb = $('.breadcrumb').text();
-          var get_there_breadcrumbs = get_there_breadcrumb.replaceAll('» ', ' > ')
-          var get_there_panel_title = $('.admin-menu-section.panel.active .panel-title').text();
-          var get_there_breadcrumb_to_page = get_there_breadcrumb.lastIndexOf('» ');
-          var get_there_page = get_there_breadcrumb.substr(get_there_breadcrumb_to_page + 1).trim();
-          var get_there_header = ($(this).parents().find('h1').first().text().trim() || $(this).parents('.form-group').find('.h2').first().text().trim() || '');
-
-          var get_there_panel_raw = $(this).parents('.form-group').find('a').first().text().trim();
-          if (get_there_panel_raw === '') { var get_there_panel = ('') } else { var get_there_panel = ('\n\t\t\t\tthen go to: ' + get_there_panel_raw) }
-
-          var get_there_sub_panel_raw = $(this).parents('.form-group .form-group').find('a').text().trim();
-          if (get_there_sub_panel_raw === '') { var get_there_sub_panel = ('') } else { var get_there_sub_panel = ('\tthen go to: ' + get_there_sub_panel_raw) }
-
-          var get_there_sub_panel_heading = $(this).parents('.form-group .form-group').find('p.h2').text().trim();
-          if (get_there_sub_panel_heading === '') { var get_there_sub_panel = ('') } else { var get_there_sub_panel = ('\tthen go to: ' + get_there_sub_panel_heading) }
-
-          var get_there_section_label_raw = ($(this).parent('.form-group').find('label').text().trim() || $(this).parents('.form-group').first().find('label').first().text().trim() || '');
-          var get_there_section_label = get_there_section_label_raw.replaceAll('Required', '')
-
-          const url = window.location.href;
-          if (url.includes("object")) { var editable_object = ('\n\t\t\tSelect the -' + get_there_page + '- row you wish to edit') } else { var editable_object = ('') }
+            //Adds function to "Hide panels"
+              $('#aspen_hide_admin_panels').click(function () {
+                $('#div_selector_thing').show();
+              });
 
 
-          console.log('\n\nHow to get to "' + get_there_page + ' > ' + get_there_section_label + '" in the Aspen Discovery administration settings\n' +
 
-            'Go to \nGo to: ' + get_there_panel_title +
-            '\n' +
-            '\nthen go to:  ' + get_there_page +
-            editable_object +
-            get_there_panel +
-            get_there_sub_panel +
-            '\nthen go to:  ' + get_there_section_label +
-            '\n' +
-            '\nAspen URL: http://YOUR_ASPEN_DOMAIN' + get_there_url +
-            '\nDestination breadcrumbs: ' + get_there_breadcrumbs +
-            '\nDestination page title: ' + get_there_page +
-            '\n' +
-            '\nMy domain: ' + domain +
-            '\nFull reference URL: ' + full_url
+            //Creates variables for URL
+              const aspen_url = $(location).attr('href');
+              const aspen_discovery_url = aspen_url.replace('#', '%23');
+              console.log('aspen_url: ' + aspen_url);
+              console.log('aspen_discovery_url: ' + aspen_discovery_url);
+
+            //Creates variables for Breadcrumbs      
+              const aspen_breadcrumb = $('.breadcrumb').text();
+              const aspen_breadcrumbs = aspen_breadcrumb.replaceAll('» ', ' > ').replace(/\s+/g, ' ').trim();
+              console.log('aspen_breadcrumbs: ' + aspen_breadcrumbs);
+
+            //BEGIN adds function to #ngm_get_url button
+            $("#aspen_get_url").click(function () {
+              navigator.clipboard.writeText(aspen_discovery_url + '\r\n');
+            });
+
+            //BEGIN adds function to #aspen_breadcrumbs button
+            $("#aspen_get_breadcrumbs").click(function () {
+              navigator.clipboard.writeText(aspen_breadcrumbs + '\r\n');
+            });
+
+            //Creates click function for Admin section
+            //If you're on an Aspen Options page and you hold down ctrl-shift and then click, you'll run this code to copy how-to-get-here text
+              $('#main-content-with-sidebar input, ' +
+                  '#main-content-with-sidebar select, ' +
+                  '#main-content-with-sidebar textarea, ' +
+                  '#main-content-with-sidebar #tinymce, ' +
+                  '#main-content-with-sidebar label,' +
+                  '#main-content-with-sidebar p.h2').click(function (e) {
+
+                  if (e.ctrlKey && e.shiftKey) {
+
+                    var full_url = window.location.toString()
+                    var domain = window.location.origin;
+                    var get_there_url = $('.breadcrumb li a').last().attr('href');
+                    var get_there_breadcrumb = $('.breadcrumb').text();
+                    var get_there_breadcrumbs = get_there_breadcrumb.replaceAll('» ', ' > ')
+                    var get_there_panel_title = $('.admin-menu-section.panel.active .panel-title').text();
+                    var get_there_breadcrumb_to_page = get_there_breadcrumb.lastIndexOf('» ');
+                    var get_there_page = get_there_breadcrumb.substr(get_there_breadcrumb_to_page + 1).trim();
+                    
+                    var get_there_panel_raw = $(this).parents('.form-group').find('a').first().text().trim();
+                    if (get_there_panel_raw === '') { var get_there_panel = ('') } else { var get_there_panel = ('\n\t\t\t\tthen go to: ' + get_there_panel_raw) }
+
+                    var get_there_sub_panel_raw = $(this).parents('.form-group .form-group').find('a').text().trim();
+                    if (get_there_sub_panel_raw === '') { var get_there_sub_panel = ('') } else { var get_there_sub_panel = ('\tthen go to: ' + get_there_sub_panel_raw) }
+
+                    var get_there_sub_panel_heading = $(this).parents('.form-group .form-group').find('p.h2').text().trim();
+                    if (get_there_sub_panel_heading === '') { var get_there_sub_panel = ('') } else { var get_there_sub_panel = ('\tthen go to: ' + get_there_sub_panel_heading) }
+
+                    var get_there_section_label_raw = ($(this).parent('.form-group').find('label').text().trim() || $(this).parents('.form-group').first().find('label').first().text().trim() || '');
+                    var get_there_section_label = get_there_section_label_raw.replaceAll('Required', '')
+
+                    const url = window.location.href;
+                    if (url.includes("object")) { var editable_object = ('\n\t\t\tSelect the -' + get_there_page + '- row you wish to edit') } else { var editable_object = ('') }
+
+                    var help_center_get_there = (
+                      'Aspen URL: http://YOUR_ASPEN_DOMAIN' + get_there_url +
+                      '\nBreadcrumbs: ' + get_there_breadcrumbs +
+                      '\nPage title: ' + get_there_page +
+                      '\nOption name: ' + get_there_section_label + get_there_sub_panel_heading +
+                      '\n\n' +
+                      'How to get there\n' +
+                      'Go to: Aspen Discovery Administration' +
+                      '\n\tthen go to: ' + get_there_panel_title +
+                      '\n\t\tthen go to: ' + get_there_page +
+                      editable_object +
+                      ' (or select "Add new")' +
+                      '\t\t\t' + get_there_panel +
+                      '\t\t\t\t' + get_there_sub_panel +
+                      '\n\t\t\t\t\tthen go to:  ' + get_there_section_label
+                    );
+                    console.log(help_center_get_there);
+                    navigator.clipboard.writeText(help_center_get_there);
+                  }
+
+              });
+
+            //Home > Browse > Administration Home > Local Enrichment > JavaScript Snippets
+              //https://nekls-digital.aspendiscovery.org/Admin/JavaScriptSnippets?objectAction=edit&id=[IDNUMBER]
+                //Auto-resize the Javascript snippets input
+                  $('#propertyRowsnippet #snippet').one('click', function () {
+                    $('#snippet').css({ 'height': 'auto', 'width': '85%', 'overflow-y': 'hidden;' });
+                    $('#snippet').height(this.scrollHeight).width(this.scrollWidth);
+                  });
+
+
+            //Adds function to button to map all labels and panel titles on admin pages
+            $("#aspen_admin_page_map").click(function () {
+
+              //Adds >> to the beginning of panel titles for copying
+              const panelTitlePrepend = "Panel: ";
+              const panelsToModify = document.querySelectorAll('#main-content-with-sidebar form .panel-title a');
+
+              panelsToModify.forEach(element => {
+                element.insertAdjacentText('afterbegin', panelTitlePrepend);
+              });
+
+              //Adds ** to the beginning of labels for copying
+              const labelPrepend = "Label: ";
+              const labelsToModify = document.querySelectorAll('#main-content-with-sidebar form label');
+
+              labelsToModify.forEach(element => {
+                element.insertAdjacentText('afterbegin', labelPrepend);
+              });
+
+              //Adds === to the beginning of spans for copying
+              const spanPrepend = "\tSpan: ";
+              const spansToModify = document.querySelectorAll('#main-content-with-sidebar form span');
+
+              spansToModify.forEach(element => {
+                element.insertAdjacentText('afterbegin', spanPrepend);
+              });
+
+              //Adds - to the beginning of spans for copying
+              const optionPrepend = "\t\tOPt: ";
+              const optionsToModify = document.querySelectorAll('#main-content-with-sidebar form select option');
+
+              optionsToModify.forEach(element => {
+                element.insertAdjacentText('afterbegin', optionPrepend);
+              });
+
+              //Select elements to copy
+              const copyables = Array.from(document.querySelectorAll('#main-content-with-sidebar form .panel-title a, #main-content-with-sidebar form label, #main-content-with-sidebar form span, #main-content-with-sidebar form select option')).map(title => title.textContent);
+
+              const allCombined = [...copyables];
+              console.log(allCombined.join('\n'));
+              navigator.clipboard.writeText(allCombined.join('\n'));
+
+              //Removes >> ** after copying
+              const matchingElements = document.querySelectorAll('#main-content-with-sidebar form .panel-title a, #main-content-with-sidebar form label, #main-content-with-sidebar form span, #main-content-with-sidebar form select option');
+
+              matchingElements.forEach(element => {
+                if (element.textContent.length >= 6) {
+                  element.textContent = element.textContent.slice(6);
+                }
+              });
+
+            });
+
+            //BEGIN help center screenshot 
+            //Formats things on the page to do a screenshot for the help center
+            $('#aspen_training_screenshot').click(function () {
+
+              //Limit libraries and locations to testLocationCodeOne and testLocationCodeTwo
+                let testLocationCodeOne = "DIGITAL"
+                let testLocationCodeTwo = "NEKLS"
+
+              //Limit panels on https://[YOUR_ASPEN]/Admin/Home%23 to the one in adminSection
+                let adminSection = "Aspen Discovery Support"
+                $('#Admin-Home #adminSections .adminSection.grid-item').hide();
+                $('.adminPanel:contains("' + adminSection + '")').closest('.adminSection.grid-item').show();
+
+              //Genericize the look of Aspen for a screenshot
+                $('#header-logo').parent().parent().html('<h1 style="font-weight: bold;	padding: 8px 0 7px 0;">Aspen training</h1>');
+                $('a:contains("Search other Next catalogs")').hide();
+                $('.menu-bar-label:contains("State Library")').parent().hide();
+                $('#account-menu-dropdown span').html('Your username').attr('style', 'padding-right: 10px');
+                $('#pin').removeAttr('type').val('YOUR PASSWORD');
+                $('#pin1').removeAttr('type').val('ENTER YOUR NEW PASSWORD');
+                $('#pin2').removeAttr('type').val('ENTER YOUR NEW PASSWORD AGAIN');
+
+              $('.adminTableRegion table tr').slice(2).hide();
+
+              $('tr td:contains("' + testLocationCodeOne + '"), tr td:contains("' + testLocationCodeTwo + '")').closest('[role="row"]').show();
+
+            $('.adminTableRegion table td[aria-label~="name"]').text('My ' + get_there_page + ' name');
+            $('.adminTableRegion table td[aria-label~="urlAlias"]').text('/my_url');
+            $('.adminTableRegion table td[aria-label~="title"]').text('My ' + get_there_page + ' title');
+            $('.adminTableRegion table td[aria-label~="locations"]').text('My ' + get_there_page + ' location');
+            $('.adminTableRegion table td[aria-label~="allowableHomeLocations"]').text('My ' + get_there_page + ' location');
+            $('.adminTableRegion table td[aria-label~="allowAccess"]').text('My ' + get_there_page + ' patron type');
+            $('.adminTableRegion table td[aria-label~="libraries"]').text('My ' + get_there_page + ' library');
+            $('.adminTableRegion table td[aria-label~="audiences"]').text('My ' + get_there_page + ' audiences');
+            $('.adminTableRegion table td[aria-label~="categories"]').text('My ' + get_there_page + ' categories');
+            $('.adminTableRegion table td[aria-label~="baseUrl"]').text('https//{your_aspen_url}');
+
+
+            //$('input').val('');
+            $('#propertyRowaudiences label[for^="audiences"]:gt(2)').remove();
+            $('#propertyRowaudiences .checkbox label[for^="audiences"]:nth-child(1)').html('<input type="checkbox"> Audicnce 1<br>');
+            $('#propertyRowaudiences .checkbox label[for^="audiences"]:nth-child(2)').html('<input type="checkbox"> Audicnce 2<br>');
+            $('#propertyRowcategories label[for^="categories"]:gt(2)').remove();
+            $('#propertyRowcategories .checkbox label[for^="categories"]:nth-child(1)').html('<input type="checkbox"> Category 1<br>');
+            $('#propertyRowcategories .checkbox label[for^="categories"]:nth-child(2)').html('<input type="checkbox"> Category 2<br>');
+            $('#propertyRowlibraries label[for^="libraries"]:gt(2)').remove();
+            $('#propertyRowlibraries .checkbox label[for^="libraries"]:nth-child(1)').html('<input type="checkbox"> Library 1<br>');
+            $('#propertyRowlibraries .checkbox label[for^="libraries"]:nth-child(2)').html('<input type="checkbox"> Library 2<br>');
+            $('#propertyRowlocations label[for^="locations"]:gt(2)').remove();
+            $('#propertyRowlocations .checkbox label[for^="locations"]:nth-child(1)').html('<input type="checkbox"> Location 1<br>');
+            $('#propertyRowlocations .checkbox label[for^="locations"]:nth-child(2)').html('<input type="checkbox"> Location 2<br>');
+
+            $('#propertyRowptypes label[for^="ptypes"]:gt(2)').remove();
+            $('#propertyRowptypes .checkbox label[for^="ptypes"]:nth-child(1)').html('<input type="checkbox"> Patron Type 1<br>');
+            $('#propertyRowptypes .checkbox label[for^="ptypes"]:nth-child(2)').html('<input type="checkbox"> Patron Type 2<br>');
+
+            $('#install-info small:first').text('Powered By Aspen Discovery');
+            let version_info = $('#install-info .version_info').text().trim();
+            $('.row.breadcrumbs').append('<p style="padding: 25px 0 0 25px;">Aspen ' + version_info + '</p>');
+            $('option:contains("Library 516 (turningleaf)")').html('<option value="1">Library XXX</option>');
+            $('option:contains("NEKLS Consortial Catalog")').html('<option value="1">Your catalog</option>');
+            $('#locationIdSelect option:gt(1)').hide();
+            $('#locationIdSelect option:nth-child(1)').html('<option value="1">Library 1</option>');
+            $('#locationIdSelect option:nth-child(2)').html('<option value="2">Library 2</option>');
+
+            $('.admin-menu-section.panel:not(.active)').hide();
+            $('.admin-menu-section.panel.active').attr('style', 'border: 5px solid #1F9BDE;');
+            $('#FloatingSave').hide();
+            $('.adminMenuLink ').prepend('<br>');
+            let last_breadcrumb_raw = $('.breadcrumb.small li:last-child').text().trim();
+            let last_breadcrumb = last_breadcrumb_raw
+              .replaceAll('» ', '')
+            console.log('last_breadcrumb: "' + last_breadcrumb + '"');
+
+            let admin_url_raw = aspen_url.split('?')[0];
+            let baseUrl = window.location.origin;
+            let admin_url = admin_url_raw.replace(baseUrl, '')
+            console.log('admin_url: ' + admin_url)
+            console.log('baseUrl: ' + baseUrl)
+
+            $('a.adminLink, .adminMenuLink a').each(function () {
+              if ($(this).attr('href') === admin_url) {
+                $(this).wrap('<span class="current_admin_page"></span>');
+              }
+            });
+
+            $('.current_admin_page')
+              .wrap('<span style="padding-top: 5px; padding-bottom: 5px; border-bottom: 5px solid #1F9BDE;">')
+              .after('<span style="color: #1f9bde; font-size: 250%;">' +
+                '<i class="fas fa-long-arrow-alt-left" style="position: relative; top: 5px; margin-left: 10px"></i></span>')
+
+            
+            });
+
+            //BEGIN force reindex 
+            $('#aspen_force_reindex').click(function () {
+              $('button:contains("Force Reindex")').click();
+            });
+
+            //BEGIN adds function to jfk
+            $("#aspen_property_row").click(function () {
+              $('.form-group.propertyRow').hide();
+            });
+
+            //BEGIN get group links
+            $('#aspen_get_group_hrefs').click(function () {
+              var arr = [], l = document.getElementsByClassName("result-title");
+              for (var i = 0; i < l.length; i++) {
+                arr.push(l[i].href);
+              }
+              function copyToClipboard(text) {
+                var dummy = document.createElement("textarea");
+                document.body.appendChild(dummy);
+                dummy.value = text;
+                dummy.select();
+                document.execCommand("copy");
+                document.body.removeChild(dummy);
+              }
+              copyToClipboard(arr.join('\n'))
+              console.log(arr.join('\n'))
+              window.open('https://www.openallurls.com/', '_blank');
+            });
+
+            //BEGIN force reindex 
+            $('#aspen_open_editions').click(function () {
+              $('.btn-editions').click();
+            });
+
+            //BEGIN get record links
+            $('#aspen_get_record_hrefs').click(function () {
+              $('a:contains("More Info")').addClass('link_to_record');
+              var record_links = [], l = document.getElementsByClassName("link_to_record");
+              for (var i = 0; i < l.length; i++) {
+                record_links.push(l[i].href);
+              }
+              function copyToClipboard(text) {
+                var dummy = document.createElement("textarea");
+                document.body.appendChild(dummy);
+                dummy.value = text;
+                dummy.select();
+                document.execCommand("copy");
+                document.body.removeChild(dummy);
+              }
+              copyToClipboard(record_links.join('\n'))
+              console.log(record_links.join('\n'))
+              window.open('https://www.openallurls.com/', '_blank');
+            });
+
+            //BEGIN get koha links
+            $('#aspen_get_koha_hrefs').click(function () {
+              $('a:contains("More Info")').addClass('link_to_record');
+              var staff_links = [], l = document.getElementsByClassName("link_to_record");
+              for (var i = 0; i < l.length; i++) {
+                staff_links.push(l[i].href);
+              }
+              function copyToClipboard(text) {
+                var dummy = document.createElement("textarea");
+                document.body.appendChild(dummy);
+                dummy.value = text;
+                dummy.select();
+                document.execCommand("copy");
+                document.body.removeChild(dummy);
+              }
+              let staff_links_01 = staff_links.join('\n');
+              let staff_links_02 = staff_links_01.toString();
+              let staff_links_03 = staff_links_02.replaceAll('https://nextkansas.org/Record/', 'https://staff.nekls.bywatersolutions.com/cgi-bin/koha/catalogue/detail.pl?biblionumber=');
+              console.log('staff_links_03: ' + staff_links_03);
+              copyToClipboard(staff_links_03);
+              window.open('https://www.openallurls.com/', '_blank');
+            });
+
+            //BEGIN force reindex 
+            $('#aspen_goto_staff').click(function () {
+              var gotostaff = ($('a.btn:contains("View in Staff Client")').attr('href') || '#');
+              console.log('gotostaff: ' + gotostaff);
+              window.open(gotostaff, '_blank');
+            });
+
+            //BEGIN google search for image
+            $('#aspen_image').click(function () {
+              var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ').replaceAll('&', 'and');
+              console.log('title: ' + title)
+              window.open('http://www.google.com/search?q=' + title + '&tbm=isch', '_blank');
+            });
+
+            //BEGIN google search with publisher
+            $('#aspen_image_wp').click(function () {
+              var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ').replaceAll('&', 'and');
+              var publisher = ($('meta[property*="publisher"]').attr('content') || ' ');
+              console.log('title: ' + title)
+              console.log('publisher: ' + publisher)
+              window.open('http://www.google.com/search?q=' + title + ' ' + publisher + '&tbm=isch', '_blank');
+            });
+
+            //BEGIN google search on IMDB
+            $('#aspen_image_movie').click(function () {
+              var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ').replaceAll('&', 'and');
+              console.log('title: ' + title)
+              window.open('http://www.google.com/search?q=' + title + ' IMDB' + '&tbm=isch', '_blank');
+            });
+
+            //Not sure what thesedo - It has something to do with the accordion builder
+            $('#WebBuilder-PortalCells #panelStatus_Layout_Settings #propertyRowmakeCellAccordion').after('<br><button id="accordion_default" type="button" style="margin: 5px;" class="btn btn-default btn-xs">Accordion default</button>');
+
+            $('#accordion_default').click(function () {
+              $('#accordion_body_Layout_Settings input').val('12');
+            });
+
+            $('#aspen_hoopla_placard').click(function () {
+              $('#Admin-Placards #propertyRowlibraries .controls').before('<br><button id="hoopla_placard_locations" type="button" style="margin: 5px;" class="btn btn-default btn-xs">Select hoopla libraries</button>');
+
+              $('#hoopla_placard_locations').click(function () {
+                $('#libraries_54').prop('checked', false);
+                $('#libraries_8').prop('checked', false);
+                $('#libraries_15').prop('checked', false);
+                $('#libraries_33').prop('checked', false);
+                $('#libraries_35').prop('checked', false);
+                $('#libraries_36').prop('checked', false);
+                $('#libraries_51').prop('checked', false);
+                $('#libraries_53').prop('checked', false);
+                $('#libraries_52').prop('checked', false);
+                $('#libraries_48').prop('checked', false);
+                $('#locations_8').prop('checked', false);
+                $('#locations_18').prop('checked', false);
+                $('#locations_39').prop('checked', false);
+                $('#locations_40').prop('checked', false);
+                $('#locations_41').prop('checked', false);
+                $('#locations_42').prop('checked', false);
+                $('#locations_43').prop('checked', false);
+                $('#locations_55').prop('checked', false);
+                $('#locations_38').prop('checked', false);
+                $('#locations_36').prop('checked', false);
+              });
+            });
+
+          }
+
+        //If we're on an Administration Options page, run this code
+        //This creates a drop-down to hide all of the panels except the one you specify to facilitate screen shots
+        if (aspen_admin_page === true) {
+
+          console.log('aspen_admin_page: ' + aspen_admin_page);
+
+          const editor = document.querySelector('.editor');
+          const select = document.getElementById('propertyRowSelect');
+
+          // Get only top-level property rows
+          const propertyRows = Array.from(
+            editor.querySelectorAll(':scope > .form-group.propertyRow')
           );
 
+          // Add default "Show all" option
+          const allOption = document.createElement('option');
+          allOption.value = 'all';
+          allOption.textContent = 'Show all';
+          select.appendChild(allOption);
 
-          var help_center_get_there = (
-            'Aspen URL: http://YOUR_ASPEN_DOMAIN' + get_there_url +
-            '\nBreadcrumbs: ' + get_there_breadcrumbs +
-            '\nPage title: ' + get_there_page +
-            '\nOption name: ' + get_there_section_label + get_there_sub_panel_heading +
-            '\n\n' +
-            'How to get there\n' +
-            'Go to: Aspen Discovery Administration' +
-            '\n\tthen go to: ' + get_there_panel_title +
-            '\n\t\tthen go to: ' + get_there_page +
-            editable_object +
-            ' (or select "Add new")' +
-            '\t\t\t' + get_there_panel +
-            '\t\t\t\t' + get_there_sub_panel +
-            '\n\t\t\t\t\tthen go to:  ' + get_there_section_label
-          );
-          console.log(help_center_get_there);
-          navigator.clipboard.writeText(help_center_get_there);
-        }
-      });
-
-
-      //Adds function to button to map all labels and panel titles on admin pages
-      $("#aspen_admin_page_map").click(function () {
-
-        //Adds >> to the beginning of panel titles for copying
-        const panelTitlePrepend = "Panel: ";
-        const panelsToModify = document.querySelectorAll('#main-content-with-sidebar form .panel-title a');
-
-        panelsToModify.forEach(element => {
-          element.insertAdjacentText('afterbegin', panelTitlePrepend);
-        });
-
-        //Adds ** to the beginning of labels for copying
-        const labelPrepend = "Label: ";
-        const labelsToModify = document.querySelectorAll('#main-content-with-sidebar form label');
-
-        labelsToModify.forEach(element => {
-          element.insertAdjacentText('afterbegin', labelPrepend);
-        });
-
-        //Adds === to the beginning of spans for copying
-        const spanPrepend = "\tSpan: ";
-        const spansToModify = document.querySelectorAll('#main-content-with-sidebar form span');
-
-        spansToModify.forEach(element => {
-          element.insertAdjacentText('afterbegin', spanPrepend);
-        });
-
-        //Adds - to the beginning of spans for copying
-        const optionPrepend = "\t\tOPt: ";
-        const optionsToModify = document.querySelectorAll('#main-content-with-sidebar form select option');
-
-        optionsToModify.forEach(element => {
-          element.insertAdjacentText('afterbegin', optionPrepend);
-        });
-
-        //Select elements to copy
-        const copyables = Array.from(document.querySelectorAll('#main-content-with-sidebar form .panel-title a, #main-content-with-sidebar form label, #main-content-with-sidebar form span, #main-content-with-sidebar form select option')).map(title => title.textContent);
-
-        const allCombined = [...copyables];
-        console.log(allCombined.join('\n'));
-        navigator.clipboard.writeText(allCombined.join('\n'));
-
-        //Removes >> ** after copying
-        const matchingElements = document.querySelectorAll('#main-content-with-sidebar form .panel-title a, #main-content-with-sidebar form label, #main-content-with-sidebar form span, #main-content-with-sidebar form select option');
-
-        matchingElements.forEach(element => {
-          if (element.textContent.length >= 6) {
-            element.textContent = element.textContent.slice(6);
-          }
-        });
-
-      });
-
-      //BEGIN generic screenshot 
-      //Formats things for a general screenshot for Next
-      $('#aspen_generic_screenshot').click(function () {
-        $('#nsc').hide();
-        $('#account-menu-dropdown span').html('Your username').attr('style', 'padding-right: 10px');
-        $('#pin').removeAttr('type').val('YOUR PASSWORD');
-        $('#pin1').removeAttr('type').val('ENTER YOUR NEW PASSWORD');
-        $('#pin2').removeAttr('type').val('ENTER YOUR NEW PASSWORD AGAIN');
-        $('.admin-menu-section.panel:not(.active)').hide();
-        $('.admin-menu-section.panel.active').attr('style', 'border: 5px solid #1F9BDE;');
-        $('#FloatingSave').hide();
-        $('.adminMenuLink ').prepend('<br>');
-        var last_breadcrumb_raw = $('.breadcrumb.small li:last-child').text().trim();
-        var last_breadcrumb = last_breadcrumb_raw
-          .replaceAll('» ', '')
-        console.log('last_breadcrumb: "' + last_breadcrumb + '"');
-
-        var admin_url_raw = aspen_url.split('?')[0];
-        var baseUrl = window.location.origin;
-        var admin_url = admin_url_raw.replace(baseUrl, '')
-        console.log('admin_url: ' + admin_url)
-        console.log('baseUrl: ' + baseUrl)
-
-        $('a.adminLink, .adminMenuLink a').each(function () {
-          if ($(this).attr('href') === admin_url) {
-            $(this).wrap('<span class="current_admin_page"></span>');
-          }
-        });
-
-        $('.current_admin_page')
-          .wrap('<span style="padding-top: 5px; padding-bottom: 5px; border: 5px solid #1F9BDE;">')
-          .before('<span style="color: #1f9bde; font-size: 200%;"><i class="fas fa-long-arrow-alt-right" style="position: relative; top: 5px; margin-right: 10px"></i></span>')
-          .after('<span style="color: #1f9bde; font-size: 200%;"><i class="fas fa-long-arrow-alt-left" style="position: relative; top: 5px; margin-left: 10px"></i></span>')
-      });
-
-      //BEGIN help center screenshot 
-      //Formats things on the page to do a screenshot for the help center
-      $('#aspen_help_center_screenshot').click(function () {
-        var get_there_breadcrumb = $('.breadcrumb').text();
-        var get_there_breadcrumbs = get_there_breadcrumb.replaceAll('» ', ' > ')
-        var get_there_panel_title = $('.admin-menu-section.panel.active .panel-title').text();
-        var get_there_breadcrumb_to_page = get_there_breadcrumb.lastIndexOf('» ');
-        var get_there_page = get_there_breadcrumb.substr(get_there_breadcrumb_to_page + 1).trim();
-        $('#header-logo').parent().parent().html('<h1 style="font-weight: bold;	padding: 8px 0 7px 0;">Aspen training<br>screenshot</h1>');
-        $('a:contains("Search other Next catalogs")').hide();
-        $('.menu-bar-label:contains("State Library")').parent().hide();
-        $('#account-menu-dropdown span').html('Your username').attr('style', 'padding-right: 10px');
-        $('#pin').removeAttr('type').val('YOUR PASSWORD');
-        $('#pin1').removeAttr('type').val('ENTER YOUR NEW PASSWORD');
-        $('#pin2').removeAttr('type').val('ENTER YOUR NEW PASSWORD AGAIN');
-        $('.adminTableRegion table tr').slice(2).hide();
-        $('.adminTableRegion table td[aria-label~="name"]').text('My ' + get_there_page + ' name');
-        $('.adminTableRegion table td[aria-label~="urlAlias"]').text('/my_url');
-        $('.adminTableRegion table td[aria-label~="title"]').text('My ' + get_there_page + ' title');
-        $('.adminTableRegion table td[aria-label~="locations"]').text('My ' + get_there_page + ' location');
-        $('.adminTableRegion table td[aria-label~="allowableHomeLocations"]').text('My ' + get_there_page + ' location');
-        $('.adminTableRegion table td[aria-label~="allowAccess"]').text('My ' + get_there_page + ' patron type');
-        $('.adminTableRegion table td[aria-label~="libraries"]').text('My ' + get_there_page + ' library');
-        $('.adminTableRegion table td[aria-label~="audiences"]').text('My ' + get_there_page + ' audiences');
-        $('.adminTableRegion table td[aria-label~="categories"]').text('My ' + get_there_page + ' categories');
-        $('.adminTableRegion table td[aria-label~="baseUrl"]').text('https//{your_aspen_url}');
-        $('input').val('');
-        $('#propertyRowaudiences label[for^="audiences"]:gt(2)').remove();
-        $('#propertyRowaudiences .checkbox label[for^="audiences"]:nth-child(1)').html('<input type="checkbox"> Audicnce 1<br>');
-        $('#propertyRowaudiences .checkbox label[for^="audiences"]:nth-child(2)').html('<input type="checkbox"> Audicnce 2<br>');
-        $('#propertyRowcategories label[for^="categories"]:gt(2)').remove();
-        $('#propertyRowcategories .checkbox label[for^="categories"]:nth-child(1)').html('<input type="checkbox"> Category 1<br>');
-        $('#propertyRowcategories .checkbox label[for^="categories"]:nth-child(2)').html('<input type="checkbox"> Category 2<br>');
-        $('#propertyRowlibraries label[for^="libraries"]:gt(2)').remove();
-        $('#propertyRowlibraries .checkbox label[for^="libraries"]:nth-child(1)').html('<input type="checkbox"> Library 1<br>');
-        $('#propertyRowlibraries .checkbox label[for^="libraries"]:nth-child(2)').html('<input type="checkbox"> Library 2<br>');
-        $('#propertyRowlocations label[for^="locations"]:gt(2)').remove();
-        $('#propertyRowlocations .checkbox label[for^="locations"]:nth-child(1)').html('<input type="checkbox"> Location 1<br>');
-        $('#propertyRowlocations .checkbox label[for^="locations"]:nth-child(2)').html('<input type="checkbox"> Location 2<br>');
-
-        $('#propertyRowptypes label[for^="ptypes"]:gt(2)').remove();
-        $('#propertyRowptypes .checkbox label[for^="ptypes"]:nth-child(1)').html('<input type="checkbox"> Patron Type 1<br>');
-        $('#propertyRowptypes .checkbox label[for^="ptypes"]:nth-child(2)').html('<input type="checkbox"> Patron Type 2<br>');
-
-        $('#install-info small:first').text('Powered By Aspen Discovery');
-        var version_info = $('#install-info .version_info').text().trim();
-        $('.row.breadcrumbs').append('<p style="padding: 25px 0 0 25px;">Aspen ' + version_info + '</p>');
-        $('option:contains("Library 516 (turningleaf)")').html('<option value="1">Library XXX</option>');
-        $('option:contains("NEKLS Consortial Catalog")').html('<option value="1">Your catalog</option>');
-        $('#locationIdSelect option:gt(1)').hide();
-        $('#locationIdSelect option:nth-child(1)').html('<option value="1">Library 1</option>');
-        $('#locationIdSelect option:nth-child(2)').html('<option value="2">Library 2</option>');
-
-        $('.admin-menu-section.panel:not(.active)').hide();
-        $('.admin-menu-section.panel.active').attr('style', 'border: 5px solid #1F9BDE;');
-        $('#FloatingSave').hide();
-        $('.adminMenuLink ').prepend('<br>');
-        var last_breadcrumb_raw = $('.breadcrumb.small li:last-child').text().trim();
-        var last_breadcrumb = last_breadcrumb_raw
-          .replaceAll('» ', '')
-        console.log('last_breadcrumb: "' + last_breadcrumb + '"');
-
-        var admin_url_raw = aspen_url.split('?')[0];
-        var baseUrl = window.location.origin;
-        var admin_url = admin_url_raw.replace(baseUrl, '')
-        console.log('admin_url: ' + admin_url)
-        console.log('baseUrl: ' + baseUrl)
-
-        $('a.adminLink, .adminMenuLink a').each(function () {
-          if ($(this).attr('href') === admin_url) {
-            $(this).wrap('<span class="current_admin_page"></span>');
-          }
-        });
-
-
-        $('.current_admin_page')
-          .wrap('<span style="padding-top: 5px; padding-bottom: 5px; border-bottom: 5px solid #1F9BDE;">')
-          .after('<span style="color: #1f9bde; font-size: 250%;">' +
-            '<i class="fas fa-long-arrow-alt-left" style="position: relative; top: 5px; margin-left: 10px"></i></span>')
-      });
-
-      //BEGIN force reindex 
-      $('#aspen_force_reindex').click(function () {
-        $('button:contains("Force Reindex")').click();
-      });
-
-      //BEGIN adds function to jfk
-      $("#aspen_property_row").click(function () {
-        $('.form-group.propertyRow').hide();
-      });
-
-      //BEGIN get group links
-      $('#aspen_get_group_hrefs').click(function () {
-        var arr = [], l = document.getElementsByClassName("result-title");
-        for (var i = 0; i < l.length; i++) {
-          arr.push(l[i].href);
-        }
-        function copyToClipboard(text) {
-          var dummy = document.createElement("textarea");
-          document.body.appendChild(dummy);
-          dummy.value = text;
-          dummy.select();
-          document.execCommand("copy");
-          document.body.removeChild(dummy);
-        }
-        copyToClipboard(arr.join('\n'))
-        console.log(arr.join('\n'))
-        window.open('https://www.openallurls.com/', '_blank');
-      });
-
-      //BEGIN force reindex 
-      $('#aspen_open_editions').click(function () {
-        $('.btn-editions').click();
-      });
-
-      //BEGIN get record links
-      $('#aspen_get_record_hrefs').click(function () {
-        $('a:contains("More Info")').addClass('link_to_record');
-        var record_links = [], l = document.getElementsByClassName("link_to_record");
-        for (var i = 0; i < l.length; i++) {
-          record_links.push(l[i].href);
-        }
-        function copyToClipboard(text) {
-          var dummy = document.createElement("textarea");
-          document.body.appendChild(dummy);
-          dummy.value = text;
-          dummy.select();
-          document.execCommand("copy");
-          document.body.removeChild(dummy);
-        }
-        copyToClipboard(record_links.join('\n'))
-        console.log(record_links.join('\n'))
-        window.open('https://www.openallurls.com/', '_blank');
-      });
-
-      //BEGIN get koha links
-      $('#aspen_get_koha_hrefs').click(function () {
-        $('a:contains("More Info")').addClass('link_to_record');
-        var staff_links = [], l = document.getElementsByClassName("link_to_record");
-        for (var i = 0; i < l.length; i++) {
-          staff_links.push(l[i].href);
-        }
-        function copyToClipboard(text) {
-          var dummy = document.createElement("textarea");
-          document.body.appendChild(dummy);
-          dummy.value = text;
-          dummy.select();
-          document.execCommand("copy");
-          document.body.removeChild(dummy);
-        }
-        let staff_links_01 = staff_links.join('\n');
-        let staff_links_02 = staff_links_01.toString();
-        let staff_links_03 = staff_links_02.replaceAll('https://nextkansas.org/Record/', 'https://staff.nekls.bywatersolutions.com/cgi-bin/koha/catalogue/detail.pl?biblionumber=');
-        console.log('staff_links_03: ' + staff_links_03);
-        copyToClipboard(staff_links_03);
-        window.open('https://www.openallurls.com/', '_blank');
-      });
-
-      //BEGIN force reindex 
-      $('#aspen_goto_staff').click(function () {
-        var gotostaff = ($('a.btn:contains("View in Staff Client")').attr('href') || '#');
-        console.log('gotostaff: ' + gotostaff);
-        window.open(gotostaff, '_blank');
-      });
-
-      //BEGIN google search for image
-      $('#aspen_image').click(function () {
-        var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ').replaceAll('&', 'and');
-        console.log('title: ' + title)
-        window.open('http://www.google.com/search?q=' + title + '&tbm=isch', '_blank');
-      });
-
-      //BEGIN google search with publisher
-      $('#aspen_image_wp').click(function () {
-        var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ').replaceAll('&', 'and');
-        var publisher = ($('meta[property*="publisher"]').attr('content') || ' ');
-        console.log('title: ' + title)
-        console.log('publisher: ' + publisher)
-        window.open('http://www.google.com/search?q=' + title + ' ' + publisher + '&tbm=isch', '_blank');
-      });
-
-      //BEGIN google search on IMDB
-      $('#aspen_image_movie').click(function () {
-        var title = ($('head > title:nth-child(1)').text().split('|')[0] || ' ').replaceAll('&', 'and');
-        console.log('title: ' + title)
-        window.open('http://www.google.com/search?q=' + title + ' IMDB' + '&tbm=isch', '_blank');
-      });
-
-      //Not sure what thesedo - It has something to do with the accordion builder
-      $('#WebBuilder-PortalCells #panelStatus_Layout_Settings #propertyRowmakeCellAccordion').after('<br><button id="accordion_default" type="button" style="margin: 5px;" class="btn btn-default btn-xs">Accordion default</button>');
-
-      $('#accordion_default').click(function () {
-        $('#accordion_body_Layout_Settings input').val('12');
-      });
-
-      $('#aspen_hoopla_placard').click(function () {
-        $('#Admin-Placards #propertyRowlibraries .controls').before('<br><button id="hoopla_placard_locations" type="button" style="margin: 5px;" class="btn btn-default btn-xs">Select hoopla libraries</button>');
-
-        $('#hoopla_placard_locations').click(function () {
-          $('#libraries_54').prop('checked', false);
-          $('#libraries_8').prop('checked', false);
-          $('#libraries_15').prop('checked', false);
-          $('#libraries_33').prop('checked', false);
-          $('#libraries_35').prop('checked', false);
-          $('#libraries_36').prop('checked', false);
-          $('#libraries_51').prop('checked', false);
-          $('#libraries_53').prop('checked', false);
-          $('#libraries_52').prop('checked', false);
-          $('#libraries_48').prop('checked', false);
-          $('#locations_8').prop('checked', false);
-          $('#locations_18').prop('checked', false);
-          $('#locations_39').prop('checked', false);
-          $('#locations_40').prop('checked', false);
-          $('#locations_41').prop('checked', false);
-          $('#locations_42').prop('checked', false);
-          $('#locations_43').prop('checked', false);
-          $('#locations_55').prop('checked', false);
-          $('#locations_38').prop('checked', false);
-          $('#locations_36').prop('checked', false);
-        });
-      });
-
-    }
-
-    //If we're on an Administration Options page, run this code
-    //This creates a drop-down to hide all of the panels except the one you specify to facilitate screen shots
-    if (aspen_admin_page === true) {
-
-      console.log('aspen_admin_page: ' + aspen_admin_page);
-
-      const editor = document.querySelector('.editor');
-      const select = document.getElementById('propertyRowSelect');
-
-      // Get only top-level property rows
-      const propertyRows = Array.from(
-        editor.querySelectorAll(':scope > .form-group.propertyRow')
-      );
-
-      // Add default "Show all" option
-      const allOption = document.createElement('option');
-      allOption.value = 'all';
-      allOption.textContent = 'Show all';
-      select.appendChild(allOption);
-
-      // Build dropdown options
-      propertyRows.forEach((row, index) => {
-        const option = document.createElement('option');
-
-        // 1. Try visible <label> text
-        const labelEl = row.querySelector('label');
-        const labelText = labelEl?.textContent?.trim();
-
-        // 2. Try form control name
-        const inputEl = row.querySelector('input, select, textarea');
-        const inputName = inputEl?.getAttribute('name');
-
-        // 3. Try data-name attribute
-        const dataName = row.dataset.name;
-
-        const label =
-          labelText ||
-          inputName ||
-          dataName ||
-          `Property Row ${index + 1}`;
-
-        option.value = index;
-        option.textContent = label;
-
-        select.appendChild(option);
-      });
-
-      // Show/hide logic
-      function updateVisibleRows(value) {
-        if (value === 'all') {
-          propertyRows.forEach(row => {
-            row.style.display = '';
-          });
-          select.style.display = '';
-        } else {
-          const selectedIndex = Number(value);
+          // Build dropdown options
           propertyRows.forEach((row, index) => {
-            row.style.display = index === selectedIndex ? '' : 'none';
+            const option = document.createElement('option');
+
+            // 1. Try visible <label> text
+            const labelEl = row.querySelector('label');
+            const labelText = labelEl?.textContent?.trim();
+
+            // 2. Try form control name
+            const inputEl = row.querySelector('input, select, textarea');
+            const inputName = inputEl?.getAttribute('name');
+
+            // 3. Try data-name attribute
+            const dataName = row.dataset.name;
+
+            const label =
+              labelText ||
+              inputName ||
+              dataName ||
+              `Property Row ${index + 1}`;
+
+            option.value = index;
+            option.textContent = label;
+
+            select.appendChild(option);
           });
-          select.style.display = 'none';
+
+          // Show/hide logic
+          function updateVisibleRows(value) {
+            if (value === 'all') {
+              propertyRows.forEach(row => {
+                row.style.display = '';
+              });
+              select.style.display = '';
+            } else {
+              const selectedIndex = Number(value);
+              propertyRows.forEach((row, index) => {
+                row.style.display = index === selectedIndex ? '' : 'none';
+              });
+              select.style.display = 'none';
+            }
+          }
+
+          // Initialize (show all by default)
+          select.value = 'all';
+          updateVisibleRows('all');
+
+          // Handle selection change
+          select.addEventListener('change', () => {
+            updateVisibleRows(select.value);
+          });
+
         }
+
+
+
       }
-
-      // Initialize (show all by default)
-      select.value = 'all';
-      updateVisibleRows('all');
-
-      // Handle selection change
-      select.addEventListener('change', () => {
-        updateVisibleRows(select.value);
-      });
-
-    }
-
-
-
-  }
 
   //END Aspen Section
 
