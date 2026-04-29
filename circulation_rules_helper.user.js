@@ -2,11 +2,10 @@
 // @name           Koha cirulation rules helper
 // @description    Hides the left hand navigation column and displays all hidden columns in circulation matrix when the page loads
 // @author         George H. Williams
-// @version        25.06.20
+// @version        26.04.29
 // @grant          none
 // @match          https://staff.nekls.bywatersolutions.com/*
 // @match          http://staff-test.nexpresslibrary.org/*
-// @require        http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
 // @downloadURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/refs/heads/main/circulation_rules_helper.user.js
 // @updateURL https://github.com/northeast-kansas-library-system/greasemonkey_for_nextkansas/raw/refs/heads/main/circulation_rules_helper.user.js
 // @license CC BY 4.0
@@ -24,20 +23,20 @@ $(document).ready(function () {
       $('#default-circulation-rules').addClass('col-md-12');
       window.dispatchEvent(new Event('resize'))
     });
-  
+
     $('#admin_smart-rules thead').click(function () {
       window.dispatchEvent(new Event('resize'))
     });
-  
+
   /* col-md-10 order-md-2 order-sm-1 */
 
   //Styles "All borrower" or "All item types"
-    $('#default-circulation-rules tr td:nth-child(1):contains("All")').css('background', '#3ce01f'); 
-    $('#default-circulation-rules tr td:nth-child(2):contains("All")').css('background', '#9eef8f'); 
+    $('#default-circulation-rules tr td:nth-child(1):contains("All")').css('background', '#3ce01f');
+    $('#default-circulation-rules tr td:nth-child(2):contains("All")').css('background', '#9eef8f');
 
   //Checks to see if we're on the rules page
-    if ($('#admin_smart-rules').length) { 
-      
+    if ($('#admin_smart-rules').length) {
+
       //Creates buttons
         $('<div id="gm_groups"><h3>Display columns based on types of rules</h3><div class="btn btn-primary gm_button" id="gm_all" style="margin: 10px">Show all</div><div class="btn btn-danger gm_button" id="gm_defaults" style="margin: 10px">Show my defaults</div><div class="btn btn-primary gm_button" id="gm_circulation" style="margin: 10px">Circulation</div><div class="btn btn-primary gm_button" id="gm_fees" style="margin: 10px">Fees</div><div class="btn btn-primary gm_button" id="gm_requests" style="margin: 10px">Requests</div><div class="btn btn-primary gm_button" id="gm_suspensions" style="margin: 10px">Suspensions</div></div>').insertBefore($('#default-circulation-rules'));;
         $('<div id="showhideContainer"><h3>Toggle individual columns</h3></div>').insertBefore($('#default-circulation-rules'));
@@ -182,8 +181,8 @@ $(document).ready(function () {
         });
 
     }
-  
-  //Automatically remove navmenu when super large or multi screen sized page is loaded 
+
+  //Automatically remove navmenu when super large or multi screen sized page is loaded
     if ($(window).width() > 1920) {
       $('#navhide, #navmenu, #nsc_rules').hide();
       $('.hiderule').removeClass();
